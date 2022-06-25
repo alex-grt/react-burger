@@ -1,4 +1,6 @@
 import './BurgerConstructor.css';
+import React from 'react';
+import { dataStructure } from '../../utils/types';
 import PropTypes from 'prop-types';
 import {
   // eslint-disable-next-line no-unused-vars
@@ -10,10 +12,22 @@ import {
   // eslint-disable-next-line no-unused-vars
   Typography
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
 function BurgerConstructor({ counter, setCounter }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [order, setOrder] = React.useState('034536');
   const buns = counter.filter(item => item.type === 'bun' ? item : null);
   const filling = counter.filter(item => item.type !== 'bun' ? item : null);
+
+  function handleClick() {
+    setIsOpen(true);
+  }
+
+  function handleClose() {
+    setIsOpen(false);
+  }
 
   function handleDelete(timeId) {
     setCounter(state =>
@@ -82,7 +96,7 @@ function BurgerConstructor({ counter, setCounter }) {
               <CurrencyIcon type="primary" />
             </div>
             {buns.length !== 0 ? (
-              <Button type="primary" size="large">
+              <Button type="primary" size="large" onClick={handleClick}>
                 Оформить заказ
               </Button>
             ) : (
@@ -97,24 +111,19 @@ function BurgerConstructor({ counter, setCounter }) {
           Добавьте ингредиенты в свой бургер
         </p>
       )}
+      <ModalOverlay
+        isOpen={isOpen}
+        onClose={handleClose}
+      >
+        <OrderDetails data={order} />
+      </ModalOverlay>
     </section>
   );
 }
 
 BurgerConstructor.propTypes = {
   counter: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    __v: PropTypes.number.isRequired,
+    ...dataStructure,
     timeId: PropTypes.number.isRequired
   })).isRequired,
   setCounter: PropTypes.func.isRequired

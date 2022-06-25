@@ -1,5 +1,6 @@
 import './NavigationMenu.css';
 import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -105,6 +106,11 @@ function NavigationMenu({ menuOpen, onClose }) {
       </nav>
     </>
   );
+}
+
+NavigationMenu.propTypes = {
+  menuOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
 }
 
 export default NavigationMenu;
