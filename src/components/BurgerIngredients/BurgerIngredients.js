@@ -1,4 +1,4 @@
-import './BurgerIngredients.css';
+import burgerIngredients from './BurgerIngredients.module.css';
 import React from 'react';
 import { dataStructure } from '../../utils/types';
 import PropTypes from 'prop-types';
@@ -10,7 +10,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsTabs from '../IngredientsTabs/IngredientsTabs';
 import Category from '../Category/Category';
-import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 function BurgerIngredients({ data, ...props }) {
@@ -28,12 +28,15 @@ function BurgerIngredients({ data, ...props }) {
   }
 
   return (
-    <section className="ingredients">
-      <h2 className="ingredients__title mt-10 mb-5 text text_type_main-large">
+    <section className={burgerIngredients.ingredients}>
+      <h2
+        className={`${
+          burgerIngredients.ingredients__title
+        } mt-10 mb-5 text text_type_main-large`}>
         Соберите бургер
       </h2>
       <IngredientsTabs />
-      <ul className="ingredients__categories mt-10">
+      <ul className={`${burgerIngredients.ingredients__categories} mt-10`}>
         <Category
           id="bun"
           title="Булки"
@@ -56,12 +59,12 @@ function BurgerIngredients({ data, ...props }) {
           {...props}
         />
       </ul>
-      <ModalOverlay
+      <Modal
         isOpen={isOpen}
         onClose={handleClose}
       >
         <IngredientDetails data={selectedIngredient} />
-      </ModalOverlay>
+      </Modal>
     </section>
   );
 }

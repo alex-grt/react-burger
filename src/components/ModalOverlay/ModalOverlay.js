@@ -1,31 +1,20 @@
-import './ModalOverlay.css';
-import ReactDOM from 'react-dom';
+import modalOverlay from './ModalOverlay.module.css';
 import PropTypes from 'prop-types';
-import Modal from '../Modal/Modal';
 
-function ModalOverlay({ children, isOpen, onClose }) {
-  const modalRoot = document.querySelector('.page-area');
-
+function ModalOverlay({ onClose }) {
   function handleClose(evt) {
-    evt.target.classList.contains('modal-overlay_opened') && onClose();
+    evt.target.classList.contains('modalOverlay') && onClose();
   }
 
-  return ReactDOM.createPortal(
+  return (
     <div
-      className={`modal-overlay${isOpen ? ' modal-overlay_opened' : ''}`}
+      className={`${modalOverlay.modalOverlay} modalOverlay`}
       onClick={handleClose}
-    >
-      <Modal onClose={onClose}>
-        {children}
-      </Modal>
-    </div>
-    , modalRoot
+    />
   );
 }
 
 ModalOverlay.propTypes = {
-  children: PropTypes.element.isRequired,
-  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired
 }
 

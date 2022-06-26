@@ -1,4 +1,4 @@
-import './AppHeader.css';
+import appHeader from './AppHeader.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -17,12 +17,14 @@ function AppHeader({ menuClick }) {
   const { pathname } = useLocation();
 
   return (
-    <header className="header">
-      <nav className="header__navigation pt-4 pb-4">
-        <div className="header__cover">
+    <header className={appHeader.header}>
+      <nav className={`${appHeader.header__navigation} pt-4 pb-4`}>
+        <div className={appHeader.header__cover}>
           <Link
             to="/constructor"
-            className="header__button header__button_form_oval pt-4 pb-4 pl-5 pr-5"
+            className={`${appHeader.header__button} ${
+              appHeader.header__button_form_oval
+            } pt-4 pb-4 pl-5 pr-5`}
           >
             {pathname === '/constructor' ? (
               <CurrencyIcon type="primary" />
@@ -30,8 +32,8 @@ function AppHeader({ menuClick }) {
               <CurrencyIcon type="secondary" />
             )}
             <p
-              className={`header__button-text text text_type_main-default ml-2${
-                pathname === '/constructor' ? ' header__button-text_active' : ''
+              className={`${appHeader.header__buttonText} text text_type_main-default ml-2 ${
+                pathname === '/constructor' ? appHeader.header__buttonText_active : ''
               }`}
             >
               Конструктор
@@ -39,7 +41,9 @@ function AppHeader({ menuClick }) {
           </Link>
           <Link
             to="/order"
-            className="header__button header__button_form_oval pt-4 pb-4 pl-5 pr-5"
+            className={`${appHeader.header__button} ${
+              appHeader.header__button_form_oval
+            } pt-4 pb-4 pl-5 pr-5`}
           >
             {pathname === '/order' ? (
               <ListIcon type="primary" />
@@ -47,19 +51,19 @@ function AppHeader({ menuClick }) {
               <ListIcon type="secondary" />
             )}
             <p
-              className={`header__button-text text text_type_main-default ml-2${
-                pathname === '/order' ? ' header__button-text_active' : ''
+              className={`${appHeader.header__buttonText} text text_type_main-default ml-2 ${
+                pathname === '/order' ? appHeader.header__buttonText_active : ''
               }`}
             >
               Лента заказов
             </p>
           </Link>
         </div>
-        <Link to="/" className="header__logo" aria-label="логотип">
+        <Link to="/" className={appHeader.header__logo} aria-label="логотип">
           <Logo />
         </Link>
         <button
-          className="header__button-logo"
+          className={appHeader.header__buttonLogo}
           type="button"
           onClick={menuClick}
           aria-label="кнопка меню с логотипом"
@@ -68,7 +72,9 @@ function AppHeader({ menuClick }) {
         </button>
         <Link
           to="/profile"
-          className="header__button header__button_form_oval pt-4 pb-4 pl-5 pr-5"
+          className={`${appHeader.header__button} ${
+            appHeader.header__button_form_oval
+          } pt-4 pb-4 pl-5 pr-5`}
         >
           {pathname === '/profile' ? (
             <ProfileIcon type="primary" />
@@ -76,15 +82,17 @@ function AppHeader({ menuClick }) {
             <ProfileIcon type="secondary" />
           )}
           <p
-            className={`header__button-text text text_type_main-default ml-2${
-              pathname === '/profile' ? ' header__button-text_active' : ''
+            className={`${appHeader.header__buttonText} text text_type_main-default ml-2 ${
+              pathname === '/profile' ? appHeader.header__buttonText_active : ''
             }`}
           >
             Личный кабинет
           </p>
         </Link>
         <button
-          className="header__button-menu header__button_form_oval pt-4 pb-4 pl-5 pr-5"
+          className={`${appHeader.header__buttonMenu} ${
+            appHeader.header__button_form_oval
+          } pt-4 pb-4 pl-5 pr-5`}
           type="button"
           onClick={menuClick}
           aria-label="кнопка меню"

@@ -1,4 +1,4 @@
-import './App.css';
+import app from './App.module.css';
 import { URL_API } from '../../utils/constants';
 import React from 'react';
 import { useQueryExecution } from '../../hooks/useQueryExecution';
@@ -26,7 +26,7 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className={app.app}>
       <AppHeader menuClick={handleMenuClick} />
       <NavigationMenu menuOpen={menuOpen} onClose={closeAllPopups} />
       <Constructor data={data} />

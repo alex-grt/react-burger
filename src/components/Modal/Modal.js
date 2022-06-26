@@ -1,13 +1,17 @@
-import './Modal.css';
+import modal from './Modal.module.css';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
   CloseIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
 
-function Modal({ children, onClose }) {
+function Modal({ children, isOpen, onClose }) {
+  const modalRoot = document.querySelector('#modals');
+
   React.useEffect(() => {
     const handleEscPress = (evt) => {
       evt.key === 'Escape' && onClose();
@@ -18,18 +22,23 @@ function Modal({ children, onClose }) {
     return () => document.removeEventListener('keydown', handleEscPress);
   }, []);
 
-  return (
-    <div className="modal p-10">
-      <div className="modal__cover" aria-label="закрыть">
-        <CloseIcon type="primary" onClick={onClose} />
+  return ReactDOM.createPortal(
+    <div className={`${modal.modalArea} ${isOpen ? modal.modalArea_opened : ''}`}>
+      <ModalOverlay onClose={onClose} />
+      <div className={`${modal.modal} p-10`}>
+        <div className={modal.modal__cover} aria-label="закрыть">
+          <CloseIcon type="primary" onClick={onClose} />
+        </div>
+        {children}
       </div>
-      {children}
     </div>
+    , modalRoot
   );
 }
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired
 }
 

@@ -25,12 +25,12 @@
   min-width: 112px;
 }
 
-.details__item-title {
+.details__itemTitle {
   color: #8585ad;
   text-align: center;
 }
 
-.details__item-value {
+.details__itemValue {
   color: #8585ad;
   text-align: center;
 }

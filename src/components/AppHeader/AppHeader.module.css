@@ -38,11 +38,11 @@
   border-radius: 40px;
 }
 
-.header__button-text {
+.header__buttonText {
   color: #8585ad;
 }
 
-.header__button-text_active {
+.header__buttonText_active {
   color: #f2f2f3;
 }
 
@@ -59,7 +59,7 @@
   opacity: .8;
 }
 
-.header__button-logo {
+.header__buttonLogo {
   border: none;
   padding: 0;
   display: none;
@@ -67,12 +67,12 @@
   transition: .1s;
 }
 
-.header__button-logo:hover {
+.header__buttonLogo:hover {
   cursor: pointer;
   opacity: .8;
 }
 
-.header__button-menu {
+.header__buttonMenu {
   border: none;
   display: none;
   justify-content: center;
@@ -81,7 +81,7 @@
   transition: .1s;
 }
 
-.header__button-menu:hover {
+.header__buttonMenu:hover {
   cursor: pointer;
   opacity: .8;
 }
@@ -99,7 +99,7 @@
     margin-left: 20px;
   }
 
-  .header__button-menu {
+  .header__buttonMenu {
     display: flex;
   }
 }
@@ -113,11 +113,11 @@
     display: none;
   }
 
-  .header__button-logo {
+  .header__buttonLogo {
     display: block;
   }
 
-  .header__button-menu {
+  .header__buttonMenu {
     display: none;
   }
 }

@@ -1,4 +1,4 @@
-import './BurgerConstructor.css';
+import burgerConstructor from './BurgerConstructor.module.css';
 import React from 'react';
 import { dataStructure } from '../../utils/types';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ import {
   // eslint-disable-next-line no-unused-vars
   Typography
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 
 function BurgerConstructor({ counter, setCounter }) {
@@ -42,12 +42,15 @@ function BurgerConstructor({ counter, setCounter }) {
   }
 
   return (
-    <section className="burger pt-25 pb-10 pl-4" aria-label="ваш бургер">
+    <section
+      className={`${burgerConstructor.burger} pt-25 pb-10 pl-4`}
+      aria-label="ваш бургер"
+    >
       {counter.length ? (
-        <div className="burger__cover">
-          <div className="burger__ingredients">
+        <div className={burgerConstructor.burger__cover}>
+          <div className={burgerConstructor.burger__ingredients}>
             {buns.length !== 0 ? (
-              <div className="burger__bun mr-4 pl-8">
+              <div className={`${burgerConstructor.burger__bun} mr-4 pl-8`}>
                 <ConstructorElement
                   type="top"
                   isLocked={true}
@@ -57,12 +60,15 @@ function BurgerConstructor({ counter, setCounter }) {
                 />
               </div>
             ) : (
-              <div className="burger__bun-not-bun" />
+              <div className={burgerConstructor.burger__bunNotBun} />
             )}
             {filling.length !== 0 && (
-              <ul className="burger__list">
+              <ul className={burgerConstructor.burger__list}>
                 {filling.map(item => (
-                  <li className="burger__ingredient" key={item.timeId}>
+                  <li
+                    className={burgerConstructor.burger__ingredient}
+                    key={item.timeId}
+                  >
                     <DragIcon type="primary" />
                     <ConstructorElement
                       text={item.name}
@@ -75,7 +81,7 @@ function BurgerConstructor({ counter, setCounter }) {
               </ul>
             )}
             {buns.length !== 0 ? (
-              <div className="burger__bun mr-4 pl-8">
+              <div className={`${burgerConstructor.burger}__bun mr-4 pl-8`}>
                 <ConstructorElement
                   type="bottom"
                   isLocked={true}
@@ -85,12 +91,16 @@ function BurgerConstructor({ counter, setCounter }) {
                 />
               </div>
             ) : (
-              <div className="burger__bun-not-bun" />
+              <div className={burgerConstructor.burger__bunNotBun} />
             )}
           </div>
-          <div className="burger__order mt-10 mr-4">
-            <div className="burger__price mr-10">
-              <p className="burger__price-text text text_type_digits-medium mr-2">
+          <div className={`${burgerConstructor.burger__order} mt-10 mr-4`}>
+            <div className={`${burgerConstructor.burger__price} mr-10`}>
+              <p
+                className={`${
+                  burgerConstructor.burger__priceText
+                } text text_type_digits-medium mr-2`}
+              >
                 {calculateSum()}
               </p>
               <CurrencyIcon type="primary" />
@@ -107,16 +117,16 @@ function BurgerConstructor({ counter, setCounter }) {
           </div>
         </div>
       ) : (
-        <p className="notice text text_type_main-default">
+        <p className={`${burgerConstructor.notice} text text_type_main-default`}>
           Добавьте ингредиенты в свой бургер
         </p>
       )}
-      <ModalOverlay
+      <Modal
         isOpen={isOpen}
         onClose={handleClose}
       >
         <OrderDetails data={order} />
-      </ModalOverlay>
+      </Modal>
     </section>
   );
 }

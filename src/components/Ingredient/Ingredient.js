@@ -1,4 +1,4 @@
-import './Ingredient.css';
+import ingredient from './Ingredient.module.css';
 import { dataStructure } from '../../utils/types';
 import PropTypes from 'prop-types';
 import {
@@ -28,7 +28,7 @@ function Ingredient({ data, onClick, counter, setCounter }) {
 
   return (
     <li
-      className="ingredient"
+      className={ingredient.ingredient}
       onClick={() => {
         handleCounter();
         onClick(data);
@@ -41,17 +41,17 @@ function Ingredient({ data, onClick, counter, setCounter }) {
         />
       )}
       <img
-        className="ingredient__image ml-4 mr-4"
+        className={`${ingredient.ingredient__image} ml-4 mr-4`}
         src={data.image}
         alt={data.name}
       />
-      <div className="ingredient__cover mt-1 mb-1">
-        <p className="ingredient__price text text_type_digits-default pr-2">
+      <div className={`${ingredient.ingredient__cover} mt-1 mb-1`}>
+        <p className={`${ingredient.ingredient__price} text text_type_digits-default pr-2`}>
           {data.price}
         </p>
         <CurrencyIcon type="primary" />
       </div>
-      <h4 className="ingredient__title text text_type_main-default">
+      <h4 className={`${ingredient.ingredient__title} text text_type_main-default`}>
         {data.name}
       </h4>
     </li>

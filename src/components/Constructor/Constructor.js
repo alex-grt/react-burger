@@ -1,4 +1,4 @@
-import './Constructor.css';
+import constructor from './Constructor.module.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { dataStructure } from '../../utils/types';
@@ -9,7 +9,7 @@ function Constructor({ data }) {
   const [counter, setCounter] = React.useState([]);
 
   return (
-    <main className="constructor">
+    <main className={constructor.constructor}>
       <BurgerIngredients data={data} counter={counter} setCounter={setCounter} />
       <BurgerConstructor counter={counter} setCounter={setCounter} />
     </main>
