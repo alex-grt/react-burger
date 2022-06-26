@@ -1,4 +1,6 @@
 import './Ingredient.css';
+import { dataStructure } from '../../utils/types';
+import PropTypes from 'prop-types';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -54,6 +56,16 @@ function Ingredient({ data, onClick, counter, setCounter }) {
       </h4>
     </li>
   );
+}
+
+Ingredient.propTypes = {
+  data: PropTypes.shape(dataStructure).isRequired,
+  onClick: PropTypes.func.isRequired,
+  counter: PropTypes.arrayOf(PropTypes.shape({
+    ...dataStructure,
+    timeId: PropTypes.number.isRequired
+  })).isRequired,
+  setCounter: PropTypes.func.isRequired
 }
 
 export default Ingredient;

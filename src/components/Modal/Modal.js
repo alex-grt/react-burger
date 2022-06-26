@@ -1,5 +1,6 @@
 import './Modal.css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -25,6 +26,11 @@ function Modal({ children, onClose }) {
       {children}
     </div>
   );
+}
+
+Modal.propTypes = {
+  children: PropTypes.element.isRequired,
+  onClose: PropTypes.func.isRequired
 }
 
 export default Modal;

@@ -1,4 +1,6 @@
 import './IngredientDetails.css';
+import { dataStructure } from '../../utils/types';
+import PropTypes from 'prop-types';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -58,6 +60,13 @@ function IngredientDetails({ data }) {
       </ul>
     </div>
   );
+}
+
+IngredientDetails.propTypes = {
+  data: PropTypes.oneOfType([
+    PropTypes.shape(dataStructure).isRequired,
+    PropTypes.object.isRequired
+  ])
 }
 
 export default IngredientDetails;

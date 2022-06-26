@@ -1,4 +1,6 @@
 import './Category.css';
+import { dataStructure } from '../../utils/types';
+import PropTypes from 'prop-types';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -20,6 +22,12 @@ function Category({ id, title, data, ...props }) {
       </ul>
     </li>
   );
+}
+
+Category.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(dataStructure)).isRequired
 }
 
 export default Category;
