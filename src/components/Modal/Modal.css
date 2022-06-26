@@ -1,0 +1,17 @@
+.modal {
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 40px;
+  position: relative;
+  background-color: #1c1c21;
+}
+
+.modal__cover {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+}
+
+.modal__cover:hover {
+  cursor: pointer;
+}
