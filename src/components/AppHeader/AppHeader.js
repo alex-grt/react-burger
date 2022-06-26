@@ -1,5 +1,6 @@
 import './AppHeader.css';
 import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -93,6 +94,10 @@ function AppHeader({ menuClick }) {
       </nav>
     </header>
   );
+}
+
+AppHeader.propTypes = {
+  menuClick: PropTypes.func.isRequired
 }
 
 export default AppHeader;

@@ -1,5 +1,7 @@
 import './Constructor.css';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { dataStructure } from '../../utils/types';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 
@@ -12,6 +14,10 @@ function Constructor({ data }) {
       <BurgerConstructor counter={counter} setCounter={setCounter} />
     </main>
   );
+}
+
+Constructor.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape(dataStructure)).isRequired
 }
 
 export default Constructor;

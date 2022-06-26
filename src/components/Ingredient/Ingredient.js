@@ -8,7 +8,7 @@ import {
   Typography
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function Ingredient({ data, counter, setCounter }) {
+function Ingredient({ data, onClick, counter, setCounter }) {
   const count = counter.filter(item => item._id === data._id).length;
   const date = new Date();
   const timestamp = date.getTime();
@@ -25,7 +25,13 @@ function Ingredient({ data, counter, setCounter }) {
   }
 
   return (
-    <li className="ingredient" onClick={handleCounter}>
+    <li
+      className="ingredient"
+      onClick={() => {
+        handleCounter();
+        onClick(data);
+      }}
+    >
       {count !== 0 && (
         <Counter
           count={data.type === 'bun' ? 2 * count : count}
