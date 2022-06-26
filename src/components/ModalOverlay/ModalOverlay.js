@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 function ModalOverlay({ onClose }) {
   function handleClose(evt) {
-    evt.target.classList.contains('modalOverlay') && onClose();
+    evt.target.classList.contains(modalOverlay.modalOverlay) && onClose();
   }
 
   return (
     <div
-      className={`${modalOverlay.modalOverlay} modalOverlay`}
+      className={modalOverlay.modalOverlay}
       onClick={handleClose}
     />
   );

@@ -17,13 +17,13 @@ function NavigationMenu({ menuOpen, onClose }) {
   const { pathname } = useLocation();
 
   function handlePopupClose(evt) {
-    evt.target.classList.contains('navigationOverlay') && onClose();
+    evt.target.classList.contains(navigationMenu.navigationOverlay) && onClose();
   }
 
   return (
     <>
       <div
-        className={`${navigationMenu.navigationOverlay} navigationOverlay ${
+        className={`${navigationMenu.navigationOverlay} ${
           menuOpen ? navigationMenu.navigationOverlay_opened : ''
           }`}
           onClick={handlePopupClose}
