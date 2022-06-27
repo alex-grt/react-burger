@@ -1,0 +1,130 @@
+.navigationOverlay {
+  width: 100%;
+  height: 100vh;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, .5);
+  transition: visibility .1s, opacity .1s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.navigationOverlay_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.navigation {
+  width: calc(68% + 6px);
+  height: 100vh;
+  padding: 100px 0 100px;
+  box-sizing: border-box;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #1c1c21;
+  transition: visibility .1s, opacity .1s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.navigation__buttonClose {
+  display: block;
+  border: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+}
+
+.navigation__buttonClose:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+.navigation__cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px;
+}
+
+.navigation__button {
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  transition: .1s;
+  text-decoration: none;
+}
+
+.navigation__button:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+.navigation__button_form_oval {
+  border-radius: 40px;
+}
+
+.navigation__buttonText {
+  color: #8585ad;
+}
+
+.navigation__buttonText_active {
+  color: #f2f2f3;
+}
+
+.navigation__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .1s;
+  text-decoration: none;
+}
+
+.navigation__logo:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+@media screen and (max-width: 980px) {
+  .navigationOverlay {
+    display: block;
+  }
+
+  .navigation {
+    display: flex;
+  }
+
+  .navigation_opened {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navigationOverlay {
+    display: none;
+  }
+
+  .navigation {
+    width: 100vw;
+    padding: 100px 0 40px;
+  }
+
+  .navigation__buttonClose {
+    top: 16px;
+    right: 16px;
+  }
+}

@@ -1,0 +1,38 @@
+.modalArea {
+  min-width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: none;
+  transition: visibility .2s, opacity .2s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.modalArea_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal {
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 40px;
+  position: relative;
+  z-index: 2;
+  background-color: #1c1c21;
+}
+
+.modal__cover {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+}
+
+.modal__cover:hover {
+  cursor: pointer;
+}

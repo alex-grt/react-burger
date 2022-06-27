@@ -1,0 +1,36 @@
+.details {
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.details__cover {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.details__list {
+  margin-top: 0;
+  padding-left: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  list-style: none;
+}
+
+.details__item {
+  min-width: 112px;
+}
+
+.details__itemTitle {
+  color: #8585ad;
+  text-align: center;
+}
+
+.details__itemValue {
+  color: #8585ad;
+  text-align: center;
+}
