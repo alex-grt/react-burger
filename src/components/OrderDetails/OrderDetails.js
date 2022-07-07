@@ -8,11 +8,11 @@ import {
   Typography
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function OrderDetails({ data }) {
+function OrderDetails({ order }) {
   return (
     <div className={`${orderDetails.order} pt-20 pb-20`}>
       <h2 className={`${orderDetails.order__number} text text_type_digits-large`}>
-        {data}
+        {order.number}
       </h2>
       <p className={`${orderDetails.order__subtitle} mt-8 mb-15 text text_type_main-medium`}>
         идентификатор заказа
@@ -39,7 +39,7 @@ function OrderDetails({ data }) {
 }
 
 OrderDetails.propTypes = {
-  data: PropTypes.string.isRequired
+  order: PropTypes.object.isRequired
 }
 
 export default OrderDetails;

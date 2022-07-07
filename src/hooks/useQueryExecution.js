@@ -20,5 +20,14 @@ export function useQueryExecution(
       .then(res => handleRequest(res));
   }
 
-  return { executeGet };
+  const executePost = (data) => {
+    return fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(data)
+    })
+      .then(res => handleRequest(res));
+  }
+
+  return { executeGet, executePost };
 };

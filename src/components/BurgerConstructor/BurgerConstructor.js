@@ -1,5 +1,7 @@
 import burgerConstructor from './BurgerConstructor.module.css';
 import React from 'react';
+import { useQueryExecution } from '../../hooks/useQueryExecution';
+import { URL_API_ORDER } from '../../utils/constants';
 import { dataStructure } from '../../utils/types';
 import PropTypes from 'prop-types';
 import {
@@ -17,13 +19,11 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 
 function BurgerConstructor({ counter, setCounter }) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [order, setOrder] = React.useState('034536');
+  const [order, setOrder] = React.useState({});
+  const { executePost } = useQueryExecution(URL_API_ORDER);
   const buns = counter.filter(item => item.type === 'bun' ? item : null);
   const filling = counter.filter(item => item.type !== 'bun' ? item : null);
-
-  function handleClick() {
-    setIsOpen(true);
-  }
+  const ingredients = counter.map(item => item._id);
 
   function handleClose() {
     setIsOpen(false);
@@ -39,6 +39,15 @@ function BurgerConstructor({ counter, setCounter }) {
     const sumFilling = filling.reduce((sum, item) => sum = sum + item.price, 0);
     const sum = (2 * buns[0]?.price || 0) + sumFilling;
     return sum;
+  }
+
+  function makeOrder() {
+    executePost({ ingredients })
+      .then(res => {
+        setOrder(res.order);
+        setIsOpen(true);
+      })
+      .catch(err => alert(`Ошибка: ${err}`));
   }
 
   return (
@@ -106,7 +115,7 @@ function BurgerConstructor({ counter, setCounter }) {
               <CurrencyIcon type="primary" />
             </div>
             {buns.length !== 0 ? (
-              <Button type="primary" size="large" onClick={handleClick}>
+              <Button type="primary" size="large" onClick={makeOrder}>
                 Оформить заказ
               </Button>
             ) : (
@@ -125,7 +134,7 @@ function BurgerConstructor({ counter, setCounter }) {
         isOpen={isOpen}
         onClose={handleClose}
       >
-        <OrderDetails data={order} />
+        <OrderDetails order={order} />
       </Modal>
     </section>
   );
