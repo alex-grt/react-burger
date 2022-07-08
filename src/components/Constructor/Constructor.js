@@ -1,23 +1,18 @@
 import constructor from './Constructor.module.css';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { dataStructure } from '../../utils/types';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 
-function Constructor({ data }) {
-  const [counter, setCounter] = React.useState([]);
-
+function Constructor() {
   return (
     <main className={constructor.constructor}>
-      <BurgerIngredients data={data} counter={counter} setCounter={setCounter} />
-      <BurgerConstructor counter={counter} setCounter={setCounter} />
+      <DndProvider backend={HTML5Backend}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </DndProvider>
     </main>
   );
-}
-
-Constructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape(dataStructure)).isRequired
 }
 
 export default Constructor;

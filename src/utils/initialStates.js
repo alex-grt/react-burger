@@ -1,55 +1,24 @@
-const initialIngredients = [{
-  _id: '',
-  name: '',
-  type: '',
-  proteins: null,
-  fat: null,
-  carbohydrates: null,
-  calories: null,
-  price: null,
-  image: '',
-  image_mobile: '',
-  image_large: '',
-  __v: null
-}];
+const initialIngredients = {
+  ingredients: [],
+  ingredientsRequest: false,
+  ingredientsFailed: false,
+  currentTab: 'bun'
+};
 
-const initialBurger = [{
-  _id: '',
-  name: '',
-  type: '',
-  proteins: null,
-  fat: null,
-  carbohydrates: null,
-  calories: null,
-  price: null,
-  image: '',
-  image_mobile: '',
-  image_large: '',
-  __v: null,
-  timeId: null
-}];
+const initialBurger = {
+  burger: []
+};
 
 const initialIngredient = {
-  _id: '',
-  name: '',
-  type: '',
-  proteins: null,
-  fat: null,
-  carbohydrates: null,
-  calories: null,
-  price: null,
-  image: '',
-  image_mobile: '',
-  image_large: '',
-  __v: null
+  selectedIngredient: {},
+  open: false
 };
 
 const initialOrder = {
-  name: '',
-  order: {
-    number: null
-  },
-  success: false
+  order: {},
+  orderRequest: false,
+  orderFailed: false,
+  open: false
 };
 
 export {

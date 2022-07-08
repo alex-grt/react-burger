@@ -1,9 +1,9 @@
 import burgerConstructor from './BurgerConstructor.module.css';
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
 import { useQueryExecution } from '../../hooks/useQueryExecution';
 import { URL_API_ORDER } from '../../utils/constants';
-import { dataStructure } from '../../utils/types';
-import PropTypes from 'prop-types';
+import { CHANGE_BURGER, CLOSE_ORDER, MAKE_ORDER_FAILED, MAKE_ORDER_REQUEST, MAKE_ORDER_SUCCESS } from '../../services/actions';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -17,22 +17,26 @@ import {
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 
-function BurgerConstructor({ counter, setCounter }) {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [order, setOrder] = React.useState({});
+function BurgerConstructor() {
+  const dispatch = useDispatch();
+  const { burger } = useSelector(store => store.burger);
+  const { open } = useSelector(store => store.order);
   const { executePost } = useQueryExecution(URL_API_ORDER);
-  const buns = counter.filter(item => item.type === 'bun' ? item : null);
-  const filling = counter.filter(item => item.type !== 'bun' ? item : null);
-  const ingredients = counter.map(item => item._id);
+  const date = new Date();
+  const timestamp = date.getTime();
+  const buns = burger.filter(item => item.type === 'bun' ? item : null);
+  const filling = burger.filter(item => item.type !== 'bun' ? item : null);
+  const ingredients = burger.map(item => item._id);
 
   function handleClose() {
-    setIsOpen(false);
+    dispatch({ type: CLOSE_ORDER });
   }
 
   function handleDelete(timeId) {
-    setCounter(state =>
-      state.filter(item => item.timeId === timeId ? null : item)
-    );
+    dispatch({
+      type: CHANGE_BURGER,
+      burger: burger.filter(item => item.timeId === timeId ? null : item)
+    });
   }
 
   function calculateSum() {
@@ -42,20 +46,56 @@ function BurgerConstructor({ counter, setCounter }) {
   }
 
   function makeOrder() {
+    dispatch({ type: MAKE_ORDER_REQUEST });
     executePost({ ingredients })
       .then(res => {
-        setOrder(res.order);
-        setIsOpen(true);
+        dispatch({
+          type: MAKE_ORDER_SUCCESS,
+          order: res.order
+        });
       })
-      .catch(err => alert(`Ошибка: ${err}`));
+      .catch(err => {
+        alert(`Ошибка: ${err}`);
+        dispatch({ type: MAKE_ORDER_FAILED });
+      });
   }
+
+  function handleBurger(item) {
+    if (item.type !== 'bun') {
+      dispatch({
+        type: CHANGE_BURGER,
+        burger: [...burger, {...item, timeId: timestamp}]
+      });
+    } else {
+      dispatch({
+        type: CHANGE_BURGER,
+        burger: [
+          ...burger.filter(item => item.type === 'bun' ? null : item),
+          {...item, timeId: timestamp}
+        ]
+      });
+    }
+  }
+
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: 'ingredient',
+    collect: monitor => ({
+      isHover: monitor.isOver()
+    }),
+    drop(item) {
+      handleBurger(item);
+    }
+  });
 
   return (
     <section
-      className={`${burgerConstructor.burger} pt-25 pb-10 pl-4`}
+      className={`${burgerConstructor.burger} pt-25 pb-10 pl-4 ${
+        isHover && burgerConstructor.burger_hovering
+      }`}
       aria-label="ваш бургер"
+      ref={dropTarget}
     >
-      {counter.length ? (
+      {burger.length ? (
         <div className={burgerConstructor.burger__cover}>
           <div className={burgerConstructor.burger__ingredients}>
             {buns.length !== 0 ? (
@@ -115,7 +155,7 @@ function BurgerConstructor({ counter, setCounter }) {
               <CurrencyIcon type="primary" />
             </div>
             {buns.length !== 0 ? (
-              <Button type="primary" size="large" onClick={makeOrder}>
+              <Button value="test" type="primary" size="large" onClick={makeOrder}>
                 Оформить заказ
               </Button>
             ) : (
@@ -131,21 +171,13 @@ function BurgerConstructor({ counter, setCounter }) {
         </p>
       )}
       <Modal
-        isOpen={isOpen}
+        isOpen={open}
         onClose={handleClose}
       >
-        <OrderDetails order={order} />
+        <OrderDetails />
       </Modal>
     </section>
   );
-}
-
-BurgerConstructor.propTypes = {
-  counter: PropTypes.arrayOf(PropTypes.shape({
-    ...dataStructure,
-    timeId: PropTypes.number.isRequired
-  })).isRequired,
-  setCounter: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;

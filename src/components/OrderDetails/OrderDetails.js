@@ -1,6 +1,6 @@
 import orderDetails from'./OrderDetails.module.css';
 import successfully from '../../images/successfully.svg';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -8,7 +8,9 @@ import {
   Typography
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function OrderDetails({ order }) {
+function OrderDetails() {
+  const { order } = useSelector(store => store.order);
+
   return (
     <div className={`${orderDetails.order} pt-20 pb-20`}>
       <h2 className={`${orderDetails.order__number} text text_type_digits-large`}>
@@ -36,10 +38,6 @@ function OrderDetails({ order }) {
       </p>
     </div>
   );
-}
-
-OrderDetails.propTypes = {
-  order: PropTypes.object.isRequired
 }
 
 export default OrderDetails;

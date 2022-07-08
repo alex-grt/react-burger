@@ -6,6 +6,10 @@
   justify-content: center;
 }
 
+.burger_hovering {
+  background-color: #2f2f37;
+}
+
 .burger__cover {
   display: flex;
   flex-direction: column;

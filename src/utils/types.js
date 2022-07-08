@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const dataStructure = {
+export const dataStructure = {
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
@@ -13,8 +13,4 @@ const dataStructure = {
   image_mobile: PropTypes.string.isRequired,
   image_large: PropTypes.string.isRequired,
   __v: PropTypes.number.isRequired
-};
-
-export {
-  dataStructure
 };
