@@ -3,17 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { useQueryExecution } from '../../hooks/useQueryExecution';
 import { URL_API_ORDER } from '../../utils/constants';
-import { CHANGE_BURGER, CLOSE_ORDER, MAKE_ORDER_FAILED, MAKE_ORDER_REQUEST, MAKE_ORDER_SUCCESS } from '../../services/actions';
+import {
+  CHANGE_BURGER,
+  CLOSE_ORDER,
+  MAKE_ORDER_FAILED,
+  MAKE_ORDER_REQUEST,
+  MAKE_ORDER_SUCCESS
+} from '../../services/actions';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
   Button,
   ConstructorElement,
   CurrencyIcon,
-  DragIcon,
   // eslint-disable-next-line no-unused-vars
   Typography
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import FillingIngredient from '../FillingIngredient/FillingIngredient';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 
@@ -30,13 +36,6 @@ function BurgerConstructor() {
 
   function handleClose() {
     dispatch({ type: CLOSE_ORDER });
-  }
-
-  function handleDelete(timeId) {
-    dispatch({
-      type: CHANGE_BURGER,
-      burger: burger.filter(item => item.timeId === timeId ? null : item)
-    });
   }
 
   function calculateSum() {
@@ -113,19 +112,8 @@ function BurgerConstructor() {
             )}
             {filling.length !== 0 && (
               <ul className={burgerConstructor.burger__list}>
-                {filling.map(item => (
-                  <li
-                    className={burgerConstructor.burger__ingredient}
-                    key={item.timeId}
-                  >
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                      text={item.name}
-                      price={item.price}
-                      thumbnail={item.image}
-                      handleClose={() => handleDelete(item.timeId)}
-                    />
-                  </li>
+                {filling.map((item, index) => (
+                  <FillingIngredient key={item.timeId} data={item} index={index} />
                 ))}
               </ul>
             )}
