@@ -1,4 +1,4 @@
-@keyframes preloader {
+@keyframes pulsation {
   0% {
     opacity: .2;
   }
@@ -38,5 +38,5 @@
   align-items: center;
   background-color: #131316;
   box-shadow: 0 0 200px 10px #33f, inset 0 0 10px 0 #33f;
-  animation: preloader 1s linear infinite;
+  animation: pulsation 1s linear infinite;
 }

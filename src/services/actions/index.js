@@ -53,6 +53,10 @@ export function sendOrder(data) {
             type: MAKE_ORDER_SUCCESS,
             order: res.order
           });
+          dispatch({
+            type: CHANGE_BURGER,
+            burger: []
+          });
         } else {
           dispatch({ type: MAKE_ORDER_FAILED });
         }

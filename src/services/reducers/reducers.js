@@ -21,8 +21,6 @@ import {
   DISABLE_PRELOADER
 } from '../actions/index';
 
-
-
 function getAllIngredients(state = initialIngredients, action) {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
@@ -129,7 +127,7 @@ function setPreloader(state = initialPreloader, action) {
     }
     default: { return state; }
   }
-}
+};
 
 export {
   getAllIngredients,
