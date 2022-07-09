@@ -1,14 +1,10 @@
 import burgerConstructor from './BurgerConstructor.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { useQueryExecution } from '../../hooks/useQueryExecution';
-import { URL_API_ORDER } from '../../utils/constants';
 import {
   CHANGE_BURGER,
   CLOSE_ORDER,
-  MAKE_ORDER_FAILED,
-  MAKE_ORDER_REQUEST,
-  MAKE_ORDER_SUCCESS
+  sendOrder
 } from '../../services/actions';
 import {
   // eslint-disable-next-line no-unused-vars
@@ -27,9 +23,7 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const { burger } = useSelector(store => store.burger);
   const { open } = useSelector(store => store.order);
-  const { executePost } = useQueryExecution(URL_API_ORDER);
   const date = new Date();
-  const timestamp = date.getTime();
   const buns = burger.filter(item => item.type === 'bun' ? item : null);
   const filling = burger.filter(item => item.type !== 'bun' ? item : null);
   const ingredients = burger.map(item => item._id);
@@ -45,32 +39,23 @@ function BurgerConstructor() {
   }
 
   function makeOrder() {
-    dispatch({ type: MAKE_ORDER_REQUEST });
-    executePost({ ingredients })
-      .then(res => {
-        dispatch({
-          type: MAKE_ORDER_SUCCESS,
-          order: res.order
-        });
-      })
-      .catch(err => {
-        alert(`Ошибка: ${err}`);
-        dispatch({ type: MAKE_ORDER_FAILED });
-      });
+    dispatch(sendOrder({ ingredients }));
   }
 
   function handleBurger(item) {
+    const timeId = date.getTime();
+
     if (item.type !== 'bun') {
       dispatch({
         type: CHANGE_BURGER,
-        burger: [...burger, {...item, timeId: timestamp}]
+        burger: [...burger, {...item, timeId}]
       });
     } else {
       dispatch({
         type: CHANGE_BURGER,
         burger: [
           ...burger.filter(item => item.type === 'bun' ? null : item),
-          {...item, timeId: timestamp}
+          {...item, timeId}
         ]
       });
     }
@@ -155,7 +140,7 @@ function BurgerConstructor() {
         </div>
       ) : (
         <p className={`${burgerConstructor.notice} text text_type_main-default`}>
-          Добавьте ингредиенты в свой бургер
+          Перенесите сюда ингредиенты, чтобы создать свой бургер
         </p>
       )}
       <Modal

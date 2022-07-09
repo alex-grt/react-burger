@@ -1,7 +1,7 @@
 import ingredient from './Ingredient.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
-import { CHANGE_BURGER, OPEN_SELECTED_INGREDIENT } from '../../services/actions';
+import { OPEN_SELECTED_INGREDIENT } from '../../services/actions';
 import { dataStructure } from '../../utils/types';
 import PropTypes from 'prop-types';
 import {
@@ -17,29 +17,10 @@ function Ingredient({ data }) {
   const dispatch = useDispatch();
   const { burger } = useSelector(store => store.burger);
   const count = burger.filter(item => item._id === data._id).length;
-  const date = new Date();
-  const timestamp = date.getTime();
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: data
   });
-
-  function handleBurger() {
-    if (data.type !== 'bun') {
-      dispatch({
-        type: CHANGE_BURGER,
-        burger: [...burger, {...data, timeId: timestamp}]
-      });
-    } else {
-      dispatch({
-        type: CHANGE_BURGER,
-        burger: [
-          ...burger.filter(item => item.type === 'bun' ? null : item),
-          {...data, timeId: timestamp}
-        ]
-      });
-    }
-  }
 
   function handleClick() {
     dispatch({
@@ -52,10 +33,7 @@ function Ingredient({ data }) {
     <li
       className={ingredient.ingredient}
       ref={dragRef}
-      onClick={() => {
-        handleBurger();
-        handleClick();
-      }}
+      onClick={handleClick}
     >
       {count !== 0 && (
         <Counter
