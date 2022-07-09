@@ -16,8 +16,12 @@ export const MAKE_ORDER_SUCCESS = 'MAKE_ORDER_SUCCESS';
 export const MAKE_ORDER_FAILED = 'MAKE_ORDER_FAILED';
 export const CLOSE_ORDER = 'CLOSE_ORDER';
 
+export const ENABLE_PRELOADER = 'ENABLE_PRELOADER';
+export const DISABLE_PRELOADER = 'DISABLE_PRELOADER';
+
 export function getIngredients() {
   return function(dispatch) {
+    dispatch({ type: ENABLE_PRELOADER });
     dispatch({ type: GET_INGREDIENTS_REQUEST });
     executeGet(`${BASE_URL}ingredients`)
       .then(res => {
@@ -33,12 +37,14 @@ export function getIngredients() {
       .catch(err => {
         alert(`Ошибка: ${err}`);
         dispatch({ type: GET_INGREDIENTS_FAILED });
-      });
+      })
+      .finally(() => dispatch({ type: DISABLE_PRELOADER }));
   }
 }
 
 export function sendOrder(data) {
   return function(dispatch) {
+    dispatch({ type: ENABLE_PRELOADER });
     dispatch({ type: MAKE_ORDER_REQUEST });
     executePost(`${BASE_URL}orders`, data)
       .then(res => {
@@ -54,6 +60,7 @@ export function sendOrder(data) {
       .catch(err => {
         alert(`Ошибка: ${err}`);
         dispatch({ type: MAKE_ORDER_FAILED });
-      });
+      })
+      .finally(() => dispatch({ type: DISABLE_PRELOADER }));
   }
 }

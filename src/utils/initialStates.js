@@ -21,9 +21,14 @@ const initialOrder = {
   open: false
 };
 
+const initialPreloader = {
+  open: false
+}
+
 export {
   initialIngredients,
   initialBurger,
   initialIngredient,
-  initialOrder
+  initialOrder,
+  initialPreloader
 };

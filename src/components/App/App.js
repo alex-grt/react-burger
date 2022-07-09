@@ -5,6 +5,7 @@ import { getIngredients } from '../../services/actions';
 import AppHeader from '../AppHeader/AppHeader';
 import NavigationMenu from '../NavigationMenu/NavigationMenu';
 import Constructor from '../Constructor/Constructor';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
       <AppHeader menuClick={handleMenuClick} />
       <NavigationMenu menuOpen={menuOpen} onClose={closeAllPopups} />
       <Constructor />
+      <Preloader />
     </div>
   );
 }

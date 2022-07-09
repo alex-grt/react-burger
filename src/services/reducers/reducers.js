@@ -2,7 +2,8 @@ import {
   initialIngredients,
   initialBurger,
   initialIngredient,
-  initialOrder
+  initialOrder,
+  initialPreloader
 } from '../../utils/initialStates';
 import {
   GET_INGREDIENTS_REQUEST,
@@ -15,7 +16,9 @@ import {
   MAKE_ORDER_REQUEST,
   MAKE_ORDER_SUCCESS,
   MAKE_ORDER_FAILED,
-  CLOSE_ORDER
+  CLOSE_ORDER,
+  ENABLE_PRELOADER,
+  DISABLE_PRELOADER
 } from '../actions/index';
 
 
@@ -26,7 +29,7 @@ function getAllIngredients(state = initialIngredients, action) {
       return {
         ...state,
         ingredientsRequest: true
-      }
+      };
     }
     case GET_INGREDIENTS_SUCCESS: {
       return {
@@ -34,14 +37,14 @@ function getAllIngredients(state = initialIngredients, action) {
         ingredients: action.ingredients,
         ingredientsRequest: false,
         ingredientsFailed: false
-      }
+      };
     }
     case GET_INGREDIENTS_FAILED: {
       return {
         ...state,
         ingredientsRequest: false,
         ingredientsFailed: true
-      }
+      };
     }
     case SET_CURRENT_TAB: {
       return {
@@ -56,7 +59,7 @@ function getAllIngredients(state = initialIngredients, action) {
 function makeBurger(state = initialBurger, action) {
   switch (action.type) {
     case CHANGE_BURGER: {
-      return { burger: action.burger }
+      return { burger: action.burger };
     }
     default: { return state; }
   }
@@ -68,13 +71,13 @@ function chooseIngredient(state = initialIngredient, action) {
       return {
         selectedIngredient: action.selectedIngredient,
         open: true
-      }
+      };
     }
     case CLOSE_SELECTED_INGREDIENT: {
       return {
         selectedIngredient: {},
         open: false
-      }
+      };
     }
     default: { return state; }
   }
@@ -86,7 +89,7 @@ function setOrder(state = initialOrder, action) {
       return {
         ...state,
         orderRequest: true
-      }
+      };
     }
     case MAKE_ORDER_SUCCESS: {
       return {
@@ -95,14 +98,14 @@ function setOrder(state = initialOrder, action) {
         orderRequest: false,
         orderFailed: false,
         open: true
-      }
+      };
     }
     case MAKE_ORDER_FAILED: {
       return {
         ...state,
         orderRequest: false,
         orderFailed: true
-      }
+      };
     }
     case CLOSE_ORDER: {
       return {
@@ -110,15 +113,28 @@ function setOrder(state = initialOrder, action) {
         orderRequest: false,
         orderFailed: false,
         open: false
-      }
+      };
     }
     default: { return state; }
   }
 };
 
+function setPreloader(state = initialPreloader, action) {
+  switch (action.type) {
+    case ENABLE_PRELOADER: {
+      return { open: true };
+    }
+    case DISABLE_PRELOADER: {
+      return { open: false };
+    }
+    default: { return state; }
+  }
+}
+
 export {
   getAllIngredients,
   makeBurger,
   chooseIngredient,
-  setOrder
+  setOrder,
+  setPreloader
 };
