@@ -1,0 +1,9 @@
+.burger__ingredient {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.burger__ingredient_dragged {
+  opacity: .5;
+}

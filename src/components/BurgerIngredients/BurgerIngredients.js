@@ -1,7 +1,7 @@
 import burgerIngredients from './BurgerIngredients.module.css';
-import React from 'react';
-import { dataStructure } from '../../utils/types';
-import PropTypes from 'prop-types';
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { CLOSE_SELECTED_INGREDIENT, SET_CURRENT_TAB } from '../../services/actions';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -13,18 +13,41 @@ import Category from '../Category/Category';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
-function BurgerIngredients({ data, ...props }) {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedIngredient, setSelectedIngredient] = React.useState(null);
-
-  function handleClick(data) {
-    setSelectedIngredient(data);
-    setIsOpen(true);
-  }
+function BurgerIngredients() {
+  const dispatch = useDispatch();
+  const { ingredients } = useSelector(store => store.ingredients);
+  const { open } = useSelector(store => store.ingredient);
+  const containerRef = useRef(null);
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null);
 
   function handleClose() {
-    setSelectedIngredient(null);
-    setIsOpen(false);
+    dispatch({ type: CLOSE_SELECTED_INGREDIENT });
+  }
+
+  function handleScroll() {
+    if (containerRef && bunRef && sauceRef && mainRef) {
+      const bunDistance = Math.abs(
+        containerRef?.current?.getBoundingClientRect()?.top -
+          bunRef?.current?.getBoundingClientRect()?.top
+      );
+      const sauceDistance = Math.abs(
+        containerRef?.current?.getBoundingClientRect()?.top -
+          sauceRef?.current?.getBoundingClientRect()?.top
+      );
+      const mainDistance = Math.abs(
+        containerRef?.current?.getBoundingClientRect()?.top -
+          mainRef?.current?.getBoundingClientRect()?.top
+      );
+      const min = Math.min(bunDistance, sauceDistance, mainDistance);
+
+      dispatch({
+        type: SET_CURRENT_TAB,
+        currentTab:
+          min === bunDistance ? 'bun' : min === sauceDistance ? 'sauce' : 'main'
+      });
+    }
   }
 
   return (
@@ -36,41 +59,38 @@ function BurgerIngredients({ data, ...props }) {
         Соберите бургер
       </h2>
       <IngredientsTabs />
-      <ul className={`${burgerIngredients.ingredients__categories} mt-10`}>
+      <ul
+        className={`${burgerIngredients.ingredients__categories} mt-10`}
+        ref={containerRef}
+        onScroll={handleScroll}
+      >
         <Category
           id="bun"
+          ref={bunRef}
           title="Булки"
-          data={data.filter(item => item.type === 'bun')}
-          onClick={handleClick}
-          {...props}
+          data={ingredients.filter(item => item.type === 'bun')}
         />
         <Category
           id="sauce"
+          ref={sauceRef}
           title="Соусы"
-          data={data.filter(item => item.type === 'sauce')}
-          onClick={handleClick}
-          {...props}
+          data={ingredients.filter(item => item.type === 'sauce')}
         />
         <Category
           id="main"
+          ref={mainRef}
           title="Начинки"
-          data={data.filter(item => item.type === 'main')}
-          onClick={handleClick}
-          {...props}
+          data={ingredients.filter(item => item.type === 'main')}
         />
       </ul>
       <Modal
-        isOpen={isOpen}
+        isOpen={open}
         onClose={handleClose}
       >
-        <IngredientDetails data={selectedIngredient} />
+        <IngredientDetails />
       </Modal>
     </section>
   );
-}
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape(dataStructure)).isRequired
 }
 
 export default BurgerIngredients;

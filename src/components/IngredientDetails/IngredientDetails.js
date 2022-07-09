@@ -1,6 +1,5 @@
 import ingredientDetails from './IngredientDetails.module.css';
-import { dataStructure } from '../../utils/types';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -8,7 +7,9 @@ import {
   Typography
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function IngredientDetails({ data }) {
+function IngredientDetails() {
+  const { selectedIngredient } = useSelector(store => store.ingredient);
+
   return (
     <div className={ingredientDetails.details}>
       <div className={ingredientDetails.details__cover}>
@@ -18,15 +19,15 @@ function IngredientDetails({ data }) {
       </div>
       <img
         className={ingredientDetails.details__image}
-        src={data?.image_large}
-        alt={data?.name}
+        src={selectedIngredient?.image_large}
+        alt={selectedIngredient?.name}
       />
       <h4
         className={`${
           ingredientDetails.details__ingredientName
         } mt-4 mb-8 text text_type_main-medium`}
       >
-        {data?.name}
+        {selectedIngredient?.name}
       </h4>
       <ul className={`${ingredientDetails.details__list} mb-5`}>
         <li className={ingredientDetails.details__item}>
@@ -42,7 +43,7 @@ function IngredientDetails({ data }) {
               ingredientDetails.details__itemValue
             } text text_type_digits-default`}
           >
-            {data?.calories}
+            {selectedIngredient?.calories}
           </p>
         </li>
         <li className={ingredientDetails.details__item}>
@@ -58,7 +59,7 @@ function IngredientDetails({ data }) {
               ingredientDetails.details__itemValue
             } text text_type_digits-default`}
           >
-            {data?.proteins}
+            {selectedIngredient?.proteins}
           </p>
         </li>
         <li className={ingredientDetails.details__item}>
@@ -74,7 +75,7 @@ function IngredientDetails({ data }) {
               ingredientDetails.details__itemValue
             } text text_type_digits-default`}
           >
-            {data?.fat}
+            {selectedIngredient?.fat}
           </p>
         </li>
         <li className={ingredientDetails.details__item}>
@@ -90,19 +91,12 @@ function IngredientDetails({ data }) {
               ingredientDetails.details__itemValue
             } text text_type_digits-default`}
           >
-            {data?.carbohydrates}
+            {selectedIngredient?.carbohydrates}
           </p>
         </li>
       </ul>
     </div>
   );
-}
-
-IngredientDetails.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.shape(dataStructure).isRequired,
-    PropTypes.object.isRequired
-  ])
 }
 
 export default IngredientDetails;

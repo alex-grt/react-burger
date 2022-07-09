@@ -1,4 +1,7 @@
 import ingredient from './Ingredient.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrag } from 'react-dnd';
+import { OPEN_SELECTED_INGREDIENT } from '../../services/actions';
 import { dataStructure } from '../../utils/types';
 import PropTypes from 'prop-types';
 import {
@@ -10,29 +13,27 @@ import {
   Typography
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function Ingredient({ data, onClick, counter, setCounter }) {
-  const count = counter.filter(item => item._id === data._id).length;
-  const date = new Date();
-  const timestamp = date.getTime();
+function Ingredient({ data }) {
+  const dispatch = useDispatch();
+  const { burger } = useSelector(store => store.burger);
+  const count = burger.filter(item => item._id === data._id).length;
+  const [, dragRef] = useDrag({
+    type: 'ingredient',
+    item: data
+  });
 
-  function handleCounter() {
-    if (data.type !== 'bun') {
-      setCounter([...counter, {...data, timeId: timestamp}]);
-    } else {
-      setCounter(state =>
-        state.filter(item => item.type === 'bun' ? null : item)
-      );
-      setCounter(state => [...state, {...data, timeId: timestamp}]);
-    }
+  function handleClick() {
+    dispatch({
+      type: OPEN_SELECTED_INGREDIENT,
+      selectedIngredient: data
+    })
   }
 
   return (
     <li
       className={ingredient.ingredient}
-      onClick={() => {
-        handleCounter();
-        onClick(data);
-      }}
+      ref={dragRef}
+      onClick={handleClick}
     >
       {count !== 0 && (
         <Counter
@@ -59,13 +60,7 @@ function Ingredient({ data, onClick, counter, setCounter }) {
 }
 
 Ingredient.propTypes = {
-  data: PropTypes.shape(dataStructure).isRequired,
-  onClick: PropTypes.func.isRequired,
-  counter: PropTypes.arrayOf(PropTypes.shape({
-    ...dataStructure,
-    timeId: PropTypes.number.isRequired
-  })).isRequired,
-  setCounter: PropTypes.func.isRequired
+  data: PropTypes.shape(dataStructure).isRequired
 }
 
 export default Ingredient;

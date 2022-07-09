@@ -1,32 +1,37 @@
 import ingredientsTabs from './IngredientsTabs.module.css';
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_CURRENT_TAB } from '../../services/actions';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function IngredientsTabs() {
-  const [current, setCurrent] = React.useState('bun');
+  const dispatch = useDispatch();
+  const { currentTab } = useSelector(store => store.ingredients);
+
+  function switchTab(current) {
+    const element = document.querySelector(`#${current}`);
+
+    element.scrollIntoView();
+    dispatch({ type: SET_CURRENT_TAB,
+      currentTab: current
+    });
+  }
 
   return (
     <ul className={ingredientsTabs.ingredientsTabs}>
       <li className={ingredientsTabs.ingredientsTabs__tab}>
-        <a className={ingredientsTabs.ingredientsTabs__link} href="#bun">
-          <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
-            Булки
-          </Tab>
-        </a>
+        <Tab value="bun" active={currentTab === 'bun'} onClick={switchTab}>
+          Булки
+        </Tab>
       </li>
       <li className={ingredientsTabs.ingredientsTabs__tab}>
-        <a className={ingredientsTabs.ingredientsTabs__link} href="#sauce">
-          <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
-            Соусы
-          </Tab>
-        </a>
+        <Tab value="sauce" active={currentTab === 'sauce'} onClick={switchTab}>
+          Соусы
+        </Tab>
       </li>
       <li className={ingredientsTabs.ingredientsTabs__tab}>
-        <a className={ingredientsTabs.ingredientsTabs__link} href="#main">
-          <Tab value="main" active={current === 'main'} onClick={setCurrent}>
-            Начинки
-          </Tab>
-        </a>
+        <Tab value="main" active={currentTab === 'main'} onClick={switchTab}>
+          Начинки
+        </Tab>
       </li>
     </ul>
   );
