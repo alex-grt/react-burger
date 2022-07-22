@@ -25,10 +25,26 @@ const initialPreloader = {
   open: false
 }
 
+const initialUser = {
+  email: '',
+  name: '',
+  accessToken: '',
+  refreshToken: '',
+  loggedIn: false,
+  userRequest: false,
+  userFailed: false,
+}
+
+const initialRestore = {
+  restore: false
+}
+
 export {
   initialIngredients,
   initialBurger,
   initialIngredient,
   initialOrder,
-  initialPreloader
+  initialPreloader,
+  initialUser,
+  initialRestore
 };

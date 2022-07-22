@@ -1,0 +1,44 @@
+.register {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.register__cover {
+  width: 480px;
+  margin-top: 180px;
+}
+
+.register__title {
+  text-align: center;
+}
+
+.register__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register__inputCover :global(.input_size_default),
+.register__inputCover :global(.input__container) {
+  width: 100%;
+}
+
+.register__buttonCover {
+  align-self: center;
+}
+
+.register__text {
+  color: #8585ad;
+  text-align: center;
+}
+
+.register__link{
+  color: #4c4cff;
+  text-decoration: none;
+}
+
+.register__link:hover {
+  cursor: pointer;
+  opacity: .8;
+}

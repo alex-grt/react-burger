@@ -1,6 +1,7 @@
 import burgerConstructor from './BurgerConstructor.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
+import { useHistory } from 'react-router-dom';
 import {
   CHANGE_BURGER,
   CLOSE_ORDER,
@@ -27,6 +28,8 @@ function BurgerConstructor() {
   const buns = burger.filter(item => item.type === 'bun' ? item : null);
   const filling = burger.filter(item => item.type !== 'bun' ? item : null);
   const ingredients = burger.map(item => item._id);
+  const refreshToken = localStorage.getItem('refreshToken');
+  const history = useHistory();
 
   function handleClose() {
     dispatch({ type: CLOSE_ORDER });
@@ -39,7 +42,11 @@ function BurgerConstructor() {
   }
 
   function makeOrder() {
-    dispatch(sendOrder({ ingredients }));
+    if (refreshToken) {
+      dispatch(sendOrder({ ingredients }));
+    } else {
+      history.replace({ pathname: 'login' });
+    }
   }
 
   function handleBurger(item) {

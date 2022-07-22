@@ -1,0 +1,15 @@
+.error {
+  width: 100%;
+  height: calc(80vh - 88px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error__title {
+  text-align: center;
+}
+
+.error__text {
+  text-align: center;
+}

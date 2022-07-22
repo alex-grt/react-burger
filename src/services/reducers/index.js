@@ -4,7 +4,9 @@ import {
   makeBurger,
   chooseIngredient,
   setOrder,
-  setPreloader
+  setPreloader,
+  setUserData,
+  setRestorePassword
 } from './reducers';
 
 export const rootReducer = combineReducers({
@@ -12,5 +14,7 @@ export const rootReducer = combineReducers({
   burger: makeBurger,
   ingredient: chooseIngredient,
   order: setOrder,
-  preloader: setPreloader
+  preloader: setPreloader,
+  user: setUserData,
+  restore: setRestorePassword
 });

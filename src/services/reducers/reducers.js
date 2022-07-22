@@ -3,7 +3,9 @@ import {
   initialBurger,
   initialIngredient,
   initialOrder,
-  initialPreloader
+  initialPreloader,
+  initialUser,
+  initialRestore
 } from '../../utils/initialStates';
 import {
   GET_INGREDIENTS_REQUEST,
@@ -18,7 +20,13 @@ import {
   MAKE_ORDER_FAILED,
   CLOSE_ORDER,
   ENABLE_PRELOADER,
-  DISABLE_PRELOADER
+  DISABLE_PRELOADER,
+  SET_USER_REQUEST,
+  SET_USER_SUCCESS,
+  SET_USER_TOKEN_SUCCESS,
+  SET_USER_FAILED,
+  RESTORE_STARTED,
+  RESTORE_FINISHED
 } from '../actions/index';
 
 function getAllIngredients(state = initialIngredients, action) {
@@ -129,10 +137,62 @@ function setPreloader(state = initialPreloader, action) {
   }
 };
 
+function setUserData(state = initialUser, action) {
+  switch (action.type) {
+    case SET_USER_REQUEST: {
+      return {
+        ...state,
+        userRequest: true
+      };
+    }
+    case SET_USER_SUCCESS: {
+      return {
+        ...action.userData,
+        userRequest: false,
+        userFailed: false,
+      }
+    }
+    case SET_USER_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        ...action.userData,
+        userRequest: false,
+        userFailed: false,
+      }
+    }
+    case SET_USER_FAILED: {
+      return {
+        ...state,
+        userRequest: false,
+        userFailed: true,
+      }
+    }
+    default: { return state; }
+  }
+};
+
+function setRestorePassword(state = initialRestore, action) {
+  switch (action.type) {
+    case RESTORE_STARTED: {
+      return {
+        restore: true
+      };
+    }
+    case RESTORE_FINISHED: {
+      return {
+        restore: false
+      }
+    }
+    default: { return state; }
+  }
+};
+
 export {
   getAllIngredients,
   makeBurger,
   chooseIngredient,
   setOrder,
-  setPreloader
+  setPreloader,
+  setUserData,
+  setRestorePassword
 };
