@@ -15,6 +15,7 @@ import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 
 function Profile() {
   const dispatch = useDispatch();
+  const { loggedIn } = useSelector(store => store.loggedIn);
   const {
     name: savedName,
     email: savedEmail
@@ -33,7 +34,6 @@ function Profile() {
     values.name !== savedName ||
     values.email !== savedEmail ||
     values.password !== '';
-  const refreshToken = localStorage.getItem('refreshToken');
   const valid = noDuplicate && partialSend;
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    if (refreshToken) {
+    if (loggedIn) {
       dispatch(getUser());
       resetForm({ name: savedName, email: savedEmail, password: '' });
     }

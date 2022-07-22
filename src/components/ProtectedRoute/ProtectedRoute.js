@@ -1,13 +1,14 @@
 import { Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function ProtectedRoute({ children }) {
-  const refreshToken = localStorage.getItem('refreshToken');
+  const { loggedIn } = useSelector(store => store.loggedIn);
 
   return (
     <Route
       render={({ location }) =>
-        refreshToken ? (
+        loggedIn ? (
           children
         ) : (
           <Redirect to={{ pathname: '/login', state: { from: location } }} />

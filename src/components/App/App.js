@@ -2,7 +2,7 @@ import app from './App.module.css';
 import React from 'react';
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getIngredients } from '../../services/actions';
+import { getIngredients, LOGGED_IN } from '../../services/actions';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AppHeader from '../AppHeader/AppHeader';
 import NavigationMenu from '../NavigationMenu/NavigationMenu';
@@ -26,6 +26,9 @@ function App() {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    refreshToken && dispatch({ type: LOGGED_IN });
     dispatch(getIngredients());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

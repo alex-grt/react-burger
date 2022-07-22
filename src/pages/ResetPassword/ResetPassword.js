@@ -27,11 +27,7 @@ function ResetPassword() {
   const [hidden, setHidden] = useState(true);
 
   useEffect(() => {
-    if (!restore) {
-      history.replace({
-        pathname: '/forgot-password'
-      });
-    }
+    !restore && history.replace({ pathname: '/forgot-password' });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 

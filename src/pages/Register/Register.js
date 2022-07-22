@@ -1,7 +1,7 @@
 import register from './Register.module.css';
 import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { sendRegistration } from '../../services/actions';
 import { useFormWithValidation } from '../../hooks/useValidation';
 import {
@@ -16,16 +16,14 @@ import {
 function Register() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { loggedIn } = useSelector(store => store.loggedIn);
   const [hidden, setHidden] = useState(true);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({ name: '', email: '', password: '' });
-  const refreshToken = localStorage.getItem('refreshToken');
 
   useEffect(() => {
-    if (refreshToken) {
-      history.goBack();
-    }
-  }, [refreshToken, history]);
+    loggedIn && history.goBack();
+  }, [loggedIn, history]);
 
   useEffect(() => {
     resetForm({ name: '', email: '', password: '' });

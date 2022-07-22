@@ -1,7 +1,7 @@
 import restorePassword from './RestorePassword.module.css';
 import { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormWithValidation } from '../../hooks/useValidation';
 import { sendRestore } from '../../services/actions';
 import {
@@ -16,6 +16,7 @@ import {
 function RestorePassword() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { loggedIn } = useSelector(store => store.loggedIn);
   const {
     values,
     handleChange,
@@ -23,13 +24,10 @@ function RestorePassword() {
     isValid,
     resetForm
   } = useFormWithValidation({ email: '' });
-  const refreshToken = localStorage.getItem('refreshToken');
 
   useEffect(() => {
-    if (refreshToken) {
-      history.goBack();
-    }
-  }, [refreshToken, history]);
+    loggedIn && history.goBack();
+  }, [loggedIn, history]);
 
   useEffect(() => {
     resetForm({ email: '' });

@@ -9,11 +9,6 @@ const initialBurger = {
   burger: []
 };
 
-const initialIngredient = {
-  selectedIngredient: {},
-  open: false
-};
-
 const initialOrder = {
   order: {},
   orderRequest: false,
@@ -28,11 +23,12 @@ const initialPreloader = {
 const initialUser = {
   email: '',
   name: '',
-  accessToken: '',
-  refreshToken: '',
-  loggedIn: false,
   userRequest: false,
   userFailed: false,
+}
+
+const initialLoggedIn = {
+  loggedIn: false
 }
 
 const initialRestore = {
@@ -42,9 +38,9 @@ const initialRestore = {
 export {
   initialIngredients,
   initialBurger,
-  initialIngredient,
   initialOrder,
   initialPreloader,
   initialUser,
+  initialLoggedIn,
   initialRestore
 };

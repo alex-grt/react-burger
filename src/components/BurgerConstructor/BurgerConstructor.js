@@ -4,9 +4,9 @@ import { useDrop } from 'react-dnd';
 import { useHistory } from 'react-router-dom';
 import {
   CHANGE_BURGER,
-  CLOSE_ORDER,
-  sendOrder
+  CLOSE_ORDER
 } from '../../services/actions';
+import { sendOrder } from '../../services/actions/withAuth';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -22,13 +22,13 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const { loggedIn } = useSelector(store => store.loggedIn);
   const { burger } = useSelector(store => store.burger);
   const { open } = useSelector(store => store.order);
   const date = new Date();
   const buns = burger.filter(item => item.type === 'bun' ? item : null);
   const filling = burger.filter(item => item.type !== 'bun' ? item : null);
   const ingredients = burger.map(item => item._id);
-  const refreshToken = localStorage.getItem('refreshToken');
   const history = useHistory();
 
   function handleClose() {
@@ -42,7 +42,7 @@ function BurgerConstructor() {
   }
 
   function makeOrder() {
-    if (refreshToken) {
+    if (loggedIn) {
       dispatch(sendOrder({ ingredients }));
     } else {
       history.replace({ pathname: 'login' });

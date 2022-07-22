@@ -1,7 +1,7 @@
 import login from './Login.module.css';
 import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { sendLogin } from '../../services/actions';
 import { useFormWithValidation } from '../../hooks/useValidation';
 import {
@@ -16,16 +16,14 @@ import {
 function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { loggedIn } = useSelector(store => store.loggedIn);
   const [hidden, setHidden] = useState(true);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({ email: '', password: '' });
-  const refreshToken = localStorage.getItem('refreshToken');
 
   useEffect(() => {
-    if (refreshToken) {
-      history.goBack();
-    }
-  }, [refreshToken, history]);
+    loggedIn && history.goBack();
+  }, [loggedIn, history]);
 
   useEffect(() => {
     resetForm({ email: '', password: '' });
@@ -37,11 +35,7 @@ function Login() {
       sendLogin(
         { email: values.email, password: values.password },
         () => {
-          history.replace({
-            pathname: history?.location?.state?.from?.pathname
-              ? history?.location?.state?.from?.pathname
-              : '/'
-          });
+          history.replace({ pathname: '/' });
         }
       )
     );
