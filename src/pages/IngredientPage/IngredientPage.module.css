@@ -1,0 +1,45 @@
+.ingredientPage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ingredientPage__cover {
+  max-width: 640px;
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ingredientPage__coverTitle {
+  min-height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+}
+
+.ingredientPage__list {
+  margin-top: 0;
+  padding-left: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  list-style: none;
+}
+
+.ingredientPage__item {
+  min-width: 112px;
+}
+
+.ingredientPage__itemTitle {
+  color: #8585ad;
+  text-align: center;
+}
+
+.ingredientPage__itemValue {
+  color: #8585ad;
+  text-align: center;
+}

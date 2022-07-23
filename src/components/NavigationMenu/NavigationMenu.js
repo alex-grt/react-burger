@@ -55,7 +55,7 @@ function NavigationMenu({ menuOpen, onClose }) {
             <Logo />
           </Link>
           <Link
-            to="/constructor"
+            to="/"
             className={`${
               navigationMenu.navigation__button
             } ${
@@ -63,7 +63,7 @@ function NavigationMenu({ menuOpen, onClose }) {
             } pt-4 pb-4 pl-5 pr-5`}
             onClick={onClose}
           >
-            {pathname === '/constructor' ? (
+            {pathname === '/' ? (
               <CurrencyIcon type="primary" />
             ) : (
               <CurrencyIcon type="secondary" />
@@ -72,7 +72,7 @@ function NavigationMenu({ menuOpen, onClose }) {
               className={`${
                 navigationMenu.navigation__buttonText
               } text text_type_main-default ml-2 ${
-                pathname === '/constructor' ? navigationMenu.navigation__buttonText_active : ''
+                pathname === '/' ? navigationMenu.navigation__buttonText_active : ''
               }`}
             >
               Конструктор
@@ -112,7 +112,7 @@ function NavigationMenu({ menuOpen, onClose }) {
           } mt-6 pt-4 pb-4 pl-5 pr-5`}
           onClick={onClose}
         >
-          {pathname === '/profile' ? (
+          {pathname.startsWith('/profile') ? (
             <ProfileIcon type="primary" />
           ) : (
             <ProfileIcon type="secondary" />
@@ -121,7 +121,9 @@ function NavigationMenu({ menuOpen, onClose }) {
             className={`${
               navigationMenu.navigation__buttonText
             } text text_type_main-default ml-2 ${
-              pathname === '/profile' ? navigationMenu.navigation__buttonText_active : ''
+              pathname.startsWith('/profile')
+              ? navigationMenu.navigation__buttonText_active
+              : ''
             }`}
           >
             Личный кабинет

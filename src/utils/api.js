@@ -7,7 +7,7 @@ const handleRequest = (res) => {
     return res.json();
   }
 
-  return Promise.reject(res.status);
+  return Promise.reject(res);
 };
 
 const executeGet = (url, headers = defaultHeaders) => {
@@ -27,4 +27,13 @@ const executePost = (url, data, headers = defaultHeaders) => {
     .then(res => handleRequest(res));
 }
 
-export { executeGet, executePost };
+const executePatch = (url, data, headers = defaultHeaders) => {
+  return fetch(url, {
+    method: 'PATCH',
+    headers: headers,
+    body: JSON.stringify(data)
+  })
+    .then(res => handleRequest(res));
+}
+
+export { executeGet, executePost, executePatch };

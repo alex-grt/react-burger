@@ -1,5 +1,15 @@
-import { executeGet, executePost } from '../api';
+import { executeGet } from '../../utils/api';
 import { BASE_URL } from '../../utils/constants';
+export {
+  sendOrder,
+  sendRegistration,
+  sendLogin,
+  sendLogout,
+  sendRestore,
+  sendReset,
+  getUser,
+  updateUser
+} from './withAuth';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
@@ -8,9 +18,6 @@ export const SET_CURRENT_TAB = 'SET_CURRENT_TAB';
 
 export const CHANGE_BURGER = 'CHANGE_BURGER';
 
-export const OPEN_SELECTED_INGREDIENT = 'OPEN_SELECTED_INGREDIENT';
-export const CLOSE_SELECTED_INGREDIENT = 'CLOSE_SELECTED_INGREDIENT';
-
 export const MAKE_ORDER_REQUEST = 'MAKE_ORDER_REQUEST';
 export const MAKE_ORDER_SUCCESS = 'MAKE_ORDER_SUCCESS';
 export const MAKE_ORDER_FAILED = 'MAKE_ORDER_FAILED';
@@ -18,6 +25,16 @@ export const CLOSE_ORDER = 'CLOSE_ORDER';
 
 export const ENABLE_PRELOADER = 'ENABLE_PRELOADER';
 export const DISABLE_PRELOADER = 'DISABLE_PRELOADER';
+
+export const SET_USER_REQUEST = 'SET_USER_REQUEST';
+export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
+export const SET_USER_FAILED = 'SET_USER_FAILED';
+
+export const LOGGED_IN = 'LOGGED_IN';
+export const LOGGED_OUT = 'LOGGED_OUT';
+
+export const RESTORE_STARTED = 'RESTORE_STARTED';
+export const RESTORE_FINISHED = 'RESTORE_FINISHED';
 
 export function getIngredients() {
   return function(dispatch) {
@@ -40,31 +57,4 @@ export function getIngredients() {
       })
       .finally(() => dispatch({ type: DISABLE_PRELOADER }));
   }
-}
-
-export function sendOrder(data) {
-  return function(dispatch) {
-    dispatch({ type: ENABLE_PRELOADER });
-    dispatch({ type: MAKE_ORDER_REQUEST });
-    executePost(`${BASE_URL}orders`, data)
-      .then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: MAKE_ORDER_SUCCESS,
-            order: res.order
-          });
-          dispatch({
-            type: CHANGE_BURGER,
-            burger: []
-          });
-        } else {
-          dispatch({ type: MAKE_ORDER_FAILED });
-        }
-      })
-      .catch(err => {
-        alert(`Ошибка: ${err}`);
-        dispatch({ type: MAKE_ORDER_FAILED });
-      })
-      .finally(() => dispatch({ type: DISABLE_PRELOADER }));
-  }
-}
+};

@@ -1,5 +1,4 @@
 import ingredientDetails from './IngredientDetails.module.css';
-import { useSelector } from 'react-redux';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -8,7 +7,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function IngredientDetails() {
-  const { selectedIngredient } = useSelector(store => store.ingredient);
+  const selectedIngredient = JSON.parse(localStorage.getItem('ingredient'));
 
   return (
     <div className={ingredientDetails.details}>

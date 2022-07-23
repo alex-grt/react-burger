@@ -1,0 +1,44 @@
+.login {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.login__cover {
+  width: 480px;
+  margin-top: 180px;
+}
+
+.login__title {
+  text-align: center;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__inputCover :global(.input_size_default),
+.login__inputCover :global(.input__container) {
+  width: 100%;
+}
+
+.login__buttonCover {
+  align-self: center;
+}
+
+.login__text {
+  color: #8585ad;
+  text-align: center;
+}
+
+.login__link{
+  color: #4c4cff;
+  text-decoration: none;
+}
+
+.login__link:hover {
+  cursor: pointer;
+  opacity: .8;
+}

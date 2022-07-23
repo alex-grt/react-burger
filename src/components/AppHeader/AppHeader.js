@@ -21,19 +21,19 @@ function AppHeader({ menuClick }) {
       <nav className={`${appHeader.header__navigation} pt-4 pb-4`}>
         <div className={appHeader.header__cover}>
           <Link
-            to="/constructor"
+            to="/"
             className={`${appHeader.header__button} ${
               appHeader.header__button_form_oval
             } pt-4 pb-4 pl-5 pr-5`}
           >
-            {pathname === '/constructor' ? (
+            {pathname === '/' ? (
               <CurrencyIcon type="primary" />
             ) : (
               <CurrencyIcon type="secondary" />
             )}
             <p
               className={`${appHeader.header__buttonText} text text_type_main-default ml-2 ${
-                pathname === '/constructor' ? appHeader.header__buttonText_active : ''
+                pathname === '/' ? appHeader.header__buttonText_active : ''
               }`}
             >
               Конструктор
@@ -76,14 +76,14 @@ function AppHeader({ menuClick }) {
             appHeader.header__button_form_oval
           } pt-4 pb-4 pl-5 pr-5`}
         >
-          {pathname === '/profile' ? (
+          {pathname.startsWith('/profile') ? (
             <ProfileIcon type="primary" />
           ) : (
             <ProfileIcon type="secondary" />
           )}
           <p
             className={`${appHeader.header__buttonText} text text_type_main-default ml-2 ${
-              pathname === '/profile' ? appHeader.header__buttonText_active : ''
+              pathname.startsWith('/profile') ? appHeader.header__buttonText_active : ''
             }`}
           >
             Личный кабинет

@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .header__cover {
@@ -50,6 +51,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  left: calc(50% - 145px);
   transition: .1s;
   text-decoration: none;
 }
@@ -86,7 +89,7 @@
   opacity: .8;
 }
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 1100px) {
   .header__cover {
     display: none;
   }
@@ -97,6 +100,7 @@
 
   .header__logo {
     margin-left: 20px;
+    position: static;
   }
 
   .header__buttonMenu {

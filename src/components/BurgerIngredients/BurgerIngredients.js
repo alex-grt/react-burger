@@ -1,7 +1,7 @@
 import burgerIngredients from './BurgerIngredients.module.css';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CLOSE_SELECTED_INGREDIENT, SET_CURRENT_TAB } from '../../services/actions';
+import { SET_CURRENT_TAB } from '../../services/actions';
 import {
   // eslint-disable-next-line no-unused-vars
   Box,
@@ -10,21 +10,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsTabs from '../IngredientsTabs/IngredientsTabs';
 import Category from '../Category/Category';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
   const { ingredients } = useSelector(store => store.ingredients);
-  const { open } = useSelector(store => store.ingredient);
   const containerRef = useRef(null);
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
   const mainRef = useRef(null);
-
-  function handleClose() {
-    dispatch({ type: CLOSE_SELECTED_INGREDIENT });
-  }
 
   function handleScroll() {
     if (containerRef && bunRef && sauceRef && mainRef) {
@@ -83,12 +76,6 @@ function BurgerIngredients() {
           data={ingredients.filter(item => item.type === 'main')}
         />
       </ul>
-      <Modal
-        isOpen={open}
-        onClose={handleClose}
-      >
-        <IngredientDetails />
-      </Modal>
     </section>
   );
 }

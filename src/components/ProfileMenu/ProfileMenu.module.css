@@ -1,0 +1,33 @@
+.profileMenu {
+  width: 320px;
+}
+
+.profileMenu__cover {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileMenu__linkCover {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.profileMenu__linkCover:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+.profileMenu__link {
+  color: #8585ad;
+  text-decoration: none;
+}
+
+.profileMenu__link_active {
+  color: #f2f2f3;
+}
+
+.profileMenu__text {
+  color: #8585ad;
+  opacity: .4;
+}
