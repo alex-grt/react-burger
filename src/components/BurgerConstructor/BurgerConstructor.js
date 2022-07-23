@@ -45,7 +45,7 @@ function BurgerConstructor() {
     if (loggedIn) {
       dispatch(sendOrder({ ingredients }));
     } else {
-      history.replace({ pathname: 'login' });
+      history.replace({ pathname: '/login' });
     }
   }
 

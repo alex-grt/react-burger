@@ -35,7 +35,11 @@ function Login() {
       sendLogin(
         { email: values.email, password: values.password },
         () => {
-          history.replace({ pathname: '/' });
+          history.replace({
+            pathname: history?.location?.state?.from?.pathname
+              ? history?.location?.state?.from?.pathname
+              : '/'
+          });
         }
       )
     );
