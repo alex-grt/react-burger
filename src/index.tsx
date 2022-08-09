@@ -20,7 +20,7 @@ export const store: any = createStore(rootReducer, enhancer);
 
 const root = ReactDOM.createRoot(document.querySelector('#root')!);
 root.render(
-  <BrowserRouter basename="/">
+  <BrowserRouter basename="/react-burger">
     <React.StrictMode>
       <Provider store={store}>
         <App />
