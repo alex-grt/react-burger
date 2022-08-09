@@ -4,7 +4,7 @@ const defaultHeaders = {
   "content-type": "application/json",
 }
 
-const handleRequest = (res: any) => {
+const handleRequest = (res: Response) => {
   if (res.ok) {
     return res.json();
   }
