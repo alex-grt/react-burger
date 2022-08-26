@@ -1,0 +1,80 @@
+.orderInfo {
+  width: 640px;
+}
+
+.orderInfo__number_theme_page {
+  text-align: center;
+}
+
+.orderInfo__status_theme_finished {
+  color: #0cc;
+}
+
+.orderInfo__status_theme_canceled {
+  color: #af3c28;
+}
+
+.orderInfo__list {
+  max-height: calc(100vh - 88px - 122px - 308px - 150px);
+  margin: 0 0 40px;
+  padding: 0 32px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: scroll;
+  list-style: none;
+  scrollbar-width: auto;
+  scrollbar-color: #8585ad #2f2f37;
+}
+
+.orderInfo__list::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2f2f37;
+}
+
+.orderInfo__list::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
+
+.orderInfo__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.orderInfo__itemCover {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+}
+
+.orderInfo__icon {
+  width: 64px;
+  height: 64px;
+  border: 2px solid #801ab2;
+  border-radius: 50%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #131316;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.orderInfo__infoCover {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.orderInfo__date {
+  color: #8585ad;
+}
+
+.orderInfo__priceCover {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

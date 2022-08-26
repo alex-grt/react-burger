@@ -1,8 +1,8 @@
 import {
   initialIngredients,
   initialBurger,
-  initialPreloader,
-} from '../../utils/initialStates';
+  initialPreloader
+} from './initialStates';
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
@@ -12,8 +12,13 @@ import {
   ENABLE_PRELOADER,
   DISABLE_PRELOADER,
 } from '../actions/index';
+import { TActions } from '../actions/types';
+import { IStateBurger, IStateIngredients, IStatePreloader } from './types';
 
-function getAllIngredients(state = initialIngredients, action) {
+function getAllIngredients(
+  state = initialIngredients,
+  action: TActions
+): IStateIngredients {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -46,7 +51,7 @@ function getAllIngredients(state = initialIngredients, action) {
   }
 };
 
-function makeBurger(state = initialBurger, action) {
+function makeBurger(state = initialBurger, action: TActions): IStateBurger {
   switch (action.type) {
     case CHANGE_BURGER: {
       return { burger: action.burger };
@@ -55,7 +60,10 @@ function makeBurger(state = initialBurger, action) {
   }
 };
 
-function setPreloader(state = initialPreloader, action) {
+function setPreloader(
+  state = initialPreloader,
+  action: TActions
+): IStatePreloader {
   switch (action.type) {
     case ENABLE_PRELOADER: {
       return { open: true };

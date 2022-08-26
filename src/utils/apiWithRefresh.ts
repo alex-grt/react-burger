@@ -112,3 +112,23 @@ export function patchWithRefresh(
       }
     });
 }
+
+export function refreshToken() {
+  const refreshToken = localStorage.getItem('refreshToken');
+
+  deleteCookie('accessToken');
+  return executePost(`${BASE_URL}auth/token`, { token: refreshToken })
+    .then(res => {
+      const token: string = res.accessToken.split('Bearer ')[1];
+
+      setCookie('accessToken', token, {
+        expires: 1200,
+        SameSite: 'None',
+        Secure: true
+      });
+      localStorage.setItem('refreshToken', res.refreshToken);
+    })
+    .catch(err => {
+      console.log(`Ошибка: ${err}`);
+    });
+}

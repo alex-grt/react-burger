@@ -1,14 +1,13 @@
 import ingredientsTabs from './IngredientsTabs.module.css';
 import { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SET_CURRENT_TAB } from '../../services/actions';
-import { TStore } from '../../utils/types';
 import { TSTab } from '../TSTab/TSTab';
 
 const IngredientsTabs: FC = () => {
-  const dispatch = useDispatch();
-  const { currentTab }: { currentTab: string } = useSelector(
-    (store: TStore) => store.ingredients
+  const dispatch = useAppDispatch();
+  const { currentTab }: { currentTab: string } = useAppSelector(
+    store => store.ingredients
   );
 
   function switchTab(current: string) {

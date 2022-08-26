@@ -1,8 +1,8 @@
 import ingredientPage from './IngredientPage.module.css';
 import { FC } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { IData, TStore } from '../../utils/types';
+import { useAppSelector } from '../../hooks';
+import { IData } from '../../utils/types';
 
 interface IParams {
   id?: string;
@@ -10,8 +10,8 @@ interface IParams {
 
 const IngredientPage: FC = () => {
   const { id } = useParams<IParams>();
-  const { ingredients }: { ingredients: IData[] } = useSelector(
-    (store: TStore) => store.ingredients
+  const { ingredients }: { ingredients: IData[] } = useAppSelector(
+    store => store.ingredients
   );
   const selectedIngredient: IData = ingredients?.filter(item => item._id === id)[0];
 

@@ -1,7 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { TStore } from '../../utils/types';
+import { useAppSelector } from '../../hooks';
 
 interface IProtectedRouteProps {
   path: string;
@@ -9,15 +8,15 @@ interface IProtectedRouteProps {
   children: ReactNode;
 }
 
-const ProtectedRoute: FC<IProtectedRouteProps> = ({ children }) => {
-  const { loggedIn }: { loggedIn: boolean } = useSelector(
-    (store: TStore) => store.loggedIn
-  );
+const ProtectedRoute: FC<IProtectedRouteProps> = ({ children, ...props }) => {
+  const { loggedIn }: { loggedIn: boolean } = useAppSelector(store => store.loggedIn);
+  const refreshToken = localStorage.getItem('refreshToken');
 
   return (
     <Route
+      {...props}
       render={({ location }) =>
-        loggedIn ? (
+        loggedIn || refreshToken ? (
           children
         ) : (
           <Redirect to={{ pathname: '/login', state: { from: location } }} />

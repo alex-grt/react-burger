@@ -76,7 +76,7 @@ const NavigationMenu: FC<INavigationMenuProps> = ({ menuOpen, onClose }) => {
             </p>
           </Link>
           <Link
-            to="/order"
+            to="/feed"
             className={`${
               navigationMenu.navigation__button
             } ${
@@ -84,7 +84,7 @@ const NavigationMenu: FC<INavigationMenuProps> = ({ menuOpen, onClose }) => {
             } pt-4 pb-4 pl-5 pr-5`}
             onClick={onClose}
           >
-            {pathname === '/order' ? (
+            {pathname.startsWith('/feed') ? (
               <ListIcon type="primary" />
             ) : (
               <ListIcon type="secondary" />
@@ -93,7 +93,9 @@ const NavigationMenu: FC<INavigationMenuProps> = ({ menuOpen, onClose }) => {
               className={`${
                 navigationMenu.navigation__buttonText
               } text text_type_main-default ml-2 ${
-                pathname === '/order' ? navigationMenu.navigation__buttonText_active : ''
+                pathname.startsWith('/feed')
+                  ? navigationMenu.navigation__buttonText_active
+                  : ''
               }`}
             >
               Лента заказов

@@ -40,19 +40,19 @@ const AppHeader: FC<IAppHeaderProps> = ({ menuClick }) => {
             </p>
           </Link>
           <Link
-            to="/order"
+            to="/feed"
             className={`${appHeader.header__button} ${
               appHeader.header__button_form_oval
             } pt-4 pb-4 pl-5 pr-5`}
           >
-            {pathname === '/order' ? (
+            {pathname.startsWith('/feed') ? (
               <ListIcon type="primary" />
             ) : (
               <ListIcon type="secondary" />
             )}
             <p
               className={`${appHeader.header__buttonText} text text_type_main-default ml-2 ${
-                pathname === '/order' ? appHeader.header__buttonText_active : ''
+                pathname.startsWith('/feed') ? appHeader.header__buttonText_active : ''
               }`}
             >
               Лента заказов

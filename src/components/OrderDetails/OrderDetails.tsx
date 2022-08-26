@@ -1,15 +1,11 @@
 import orderDetails from'./OrderDetails.module.css';
 import successfully from '../../images/successfully.svg';
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { TStore } from '../../utils/types';
-
-interface IOrder {
-  number: number;
-}
+import { useAppSelector } from '../../hooks';
+import { IOrder } from '../../utils/types';
 
 const OrderDetails: FC = () => {
-  const { order }: { order: IOrder } = useSelector((store: TStore) => store.order);
+  const order: IOrder = useAppSelector(store => store.order.order);
 
   return (
     <div className={`${orderDetails.order} pt-20 pb-20`}>

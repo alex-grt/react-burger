@@ -10,6 +10,7 @@ import {
   setLoggedIn,
   setRestorePassword,
 } from './reducersWithAuth';
+import { getWSOrders, getWSUserOrders } from './wsRedusers';
 
 export const rootReducer = combineReducers({
   ingredients: getAllIngredients,
@@ -18,5 +19,7 @@ export const rootReducer = combineReducers({
   preloader: setPreloader,
   user: setUserData,
   loggedIn: setLoggedIn,
-  restore: setRestorePassword
+  restore: setRestorePassword,
+  wsOrders: getWSOrders,
+  wsUserOrders: getWSUserOrders
 });

@@ -21,9 +21,14 @@ import {
   RESTORE_STARTED,
   RESTORE_FINISHED
 } from './index';
+import { TDispatch, TIngredientList, TThunk } from '../../utils/types';
 
-function sendOrder(data) {
-  return function(dispatch) {
+interface IValues {
+  [name: string]: string;
+}
+
+function sendOrder(data: { ingredients: TIngredientList }): TThunk {
+  return function(dispatch: TDispatch) {
     const headers ={
       "content-type": "application/json",
       authorization: 'Bearer ' + getCookie('accessToken')
@@ -50,8 +55,8 @@ function sendOrder(data) {
   }
 };
 
-function sendRegistration(data, callback) {
-  return function(dispatch) {
+function sendRegistration(data: IValues, callback: () => void): TThunk {
+  return function(dispatch: TDispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     dispatch({ type: SET_USER_REQUEST });
     executePost(`${BASE_URL}auth/register`, data)
@@ -81,8 +86,8 @@ function sendRegistration(data, callback) {
   }
 };
 
-function sendLogin(data, callback) {
-  return function(dispatch) {
+function sendLogin(data: IValues, callback: () => void): TThunk {
+  return function(dispatch: TDispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     dispatch({ type: SET_USER_REQUEST });
     executePost(`${BASE_URL}auth/login`, data)
@@ -112,8 +117,11 @@ function sendLogin(data, callback) {
   }
 };
 
-function sendLogout(data, callback) {
-  return function(dispatch) {
+function sendLogout(
+  data: { token: string | null },
+  callback: () => void
+): TThunk {
+  return function(dispatch: TDispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     dispatch({ type: SET_USER_REQUEST });
     executePost(`${BASE_URL}auth/logout`, data)
@@ -138,8 +146,8 @@ function sendLogout(data, callback) {
   }
 };
 
-function sendRestore(data, callback) {
-  return function(dispatch) {
+function sendRestore(data: IValues, callback: () => void): TThunk {
+  return function(dispatch: TDispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     executePost(`${BASE_URL}password-reset`, data)
       .then(() => {
@@ -153,8 +161,8 @@ function sendRestore(data, callback) {
   }
 };
 
-function sendReset(data, callback) {
-  return function(dispatch) {
+function sendReset(data: IValues, callback: () => void): TThunk {
+  return function(dispatch: TDispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     executePost(`${BASE_URL}password-reset/reset`, data)
       .then(() => {
@@ -168,8 +176,8 @@ function sendReset(data, callback) {
   }
 };
 
-function getUser() {
-  return function(dispatch) {
+function getUser(): TThunk {
+  return function(dispatch: TDispatch) {
     const headers = {
       "content-type": "application/json",
       authorization: 'Bearer ' + getCookie('accessToken')
@@ -195,8 +203,8 @@ function getUser() {
   }
 };
 
-function updateUser(data) {
-  return function(dispatch) {
+function updateUser(data: IValues): TThunk {
+  return function(dispatch: TDispatch) {
     const headers ={
       "content-type": "application/json",
       authorization: 'Bearer ' + getCookie('accessToken')

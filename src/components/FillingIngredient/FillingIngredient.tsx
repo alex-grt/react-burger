@@ -1,9 +1,9 @@
 import fillingIngredient from './FillingIngredient.module.css';
 import { FC, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useDrag, useDrop } from 'react-dnd';
 import { CHANGE_BURGER } from '../../services/actions';
-import { IDataWithTimestamp, TStore } from '../../utils/types';
+import { IDataWithTimestamp } from '../../utils/types';
 import {
   ConstructorElement,
   DragIcon
@@ -15,9 +15,9 @@ interface IFillingIngredientProps {
 }
 
 const FillingIngredient: FC<IFillingIngredientProps> = ({ data, index }) => {
-  const dispatch = useDispatch();
-  const { burger }: { burger: IDataWithTimestamp[] } = useSelector(
-    (store: TStore) => store.burger
+  const dispatch = useAppDispatch();
+  const { burger }: { burger: IDataWithTimestamp[] } = useAppSelector(
+    store => store.burger
   );
   const ref = useRef<HTMLLIElement>(null);
   const buns: IDataWithTimestamp[] = burger.filter(

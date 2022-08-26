@@ -1,9 +1,13 @@
 import burgerConstructor from './BurgerConstructor.module.css';
 import { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { useHistory } from 'react-router-dom';
-import { IData, IDataWithTimestamp, TDispatch, TStore } from '../../utils/types';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  IData,
+  IDataWithTimestamp,
+  TIngredientList
+} from '../../utils/types';
 import { CHANGE_BURGER, CLOSE_ORDER } from '../../services/actions';
 import { sendOrder } from '../../services/actions/withAuth';
 import {
@@ -14,16 +18,17 @@ import { TSButton } from '../TSButton/TSButton';
 import FillingIngredient from '../FillingIngredient/FillingIngredient';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import { calculateSum } from '../../utils/calculateSum';
 
 const BurgerConstructor: FC = () => {
-  const dispatch = useDispatch<TDispatch>();
-  const { loggedIn }: { loggedIn: boolean } = useSelector(
-    (store: TStore) => store.loggedIn
+  const dispatch = useAppDispatch();
+  const { loggedIn }: { loggedIn: boolean } = useAppSelector(
+    store => store.loggedIn
   );
-  const { burger }: { burger: IDataWithTimestamp[] } = useSelector(
-    (store: TStore) => store.burger
+  const { burger }: { burger: IDataWithTimestamp[] } = useAppSelector(
+    store => store.burger
   );
-  const { open }: { open: boolean } = useSelector((store: TStore) => store.order);
+  const { open }: { open: boolean } = useAppSelector(store => store.order);
   const date = new Date();
   const buns: IDataWithTimestamp[] = burger.filter(
     item => item.type === 'bun' ? item : null
@@ -31,20 +36,11 @@ const BurgerConstructor: FC = () => {
   const filling: IDataWithTimestamp[] = burger.filter(
     item => item.type !== 'bun' ? item : null
   );
-  const ingredients: string[] = burger.map(item => item._id);
+  const ingredients: TIngredientList = burger.map(item => item._id);
   const history = useHistory();
 
   function handleClose() {
     dispatch({ type: CLOSE_ORDER });
-  }
-
-  function calculateSum(): number {
-    const sumFilling: number = filling.reduce(
-      (sum: number, item: IDataWithTimestamp) => sum = sum + item.price,
-      0
-    );
-    const sum: number = (2 * buns[0]?.price || 0) + sumFilling;
-    return sum;
   }
 
   function makeOrder() {
@@ -136,7 +132,7 @@ const BurgerConstructor: FC = () => {
                   burgerConstructor.burger__priceText
                 } text text_type_digits-medium mr-2`}
               >
-                {calculateSum()}
+                {calculateSum(burger)}
               </p>
               <CurrencyIcon type="primary" />
             </div>
