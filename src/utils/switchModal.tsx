@@ -1,3 +1,4 @@
+import modal from '../components/Modal/Modal.module.css';
 import { ReactNode } from 'react';
 import { Route } from 'react-router-dom';
 import IngredientDetails from '../components/IngredientDetails/IngredientDetails';
@@ -11,7 +12,11 @@ export function switchModal(path: string, callback: () => void): ReactNode {
         <Route
           path="/feed/:id"
           children={
-            <Modal isOpen={path} onClose={callback} type='orders'>
+            <Modal
+              isOpen={path}
+              onClose={callback}
+              styleName={modal.modal__cover_theme_orders}
+            >
               <OrderInfo type="modal" />
             </Modal>
           }
@@ -23,7 +28,11 @@ export function switchModal(path: string, callback: () => void): ReactNode {
         <Route
           path="/profile/orders/:id"
           children={
-            <Modal isOpen={path} onClose={callback} type='orders'>
+            <Modal
+              isOpen={path}
+              onClose={callback}
+              styleName={modal.modal__cover_theme_orders}
+            >
               <OrderInfo type="modal" />
             </Modal>
           }

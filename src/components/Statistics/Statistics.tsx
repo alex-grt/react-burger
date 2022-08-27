@@ -29,14 +29,14 @@ const Statistics: FC = () => {
             Готовы:
           </p>
           <ul className={`${statistics.statistics__orders}`}>
-            {completed?.map((item: IWSOrder, index: number) => (
+            {completed?.map((item: IWSOrder) => (
                 <li
                   className={`${
                     statistics.statistics__order
                   } ${
                     statistics.statistics__order_status_completed
                   } text text_type_digits-default`}
-                  key={index}
+                  key={item._id}
                 >
                   {item.number}
                 </li>
@@ -52,12 +52,12 @@ const Statistics: FC = () => {
             В работе:
           </p>
           <ul className={`${statistics.statistics__orders}`}>
-            {inWork?.map((item: IWSOrder, index: number) => (
+            {inWork?.map((item: IWSOrder) => (
                 <li
                   className={`${
                     statistics.statistics__order
                   } text text_type_digits-default`}
-                  key={index}
+                  key={item._id}
                 >
                   {item.number}
                 </li>

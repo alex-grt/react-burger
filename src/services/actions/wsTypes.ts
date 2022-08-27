@@ -4,11 +4,13 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
+  WS_CONNECTION_STOP,
   WS_AUTH_CONNECTION_START,
   WS_AUTH_CONNECTION_SUCCESS,
   WS_AUTH_CONNECTION_ERROR,
   WS_AUTH_CONNECTION_CLOSED,
-  WS_AUTH_GET_MESSAGE
+  WS_AUTH_GET_MESSAGE,
+  WS_AUTH_CONNECTION_STOP
 } from './wsActions';
 
 export interface IWSConnectionStart {
@@ -35,9 +37,14 @@ export interface IWSGetMessage {
   payload: string;
 }
 
+export interface IWSConnectionStop {
+  readonly type: typeof WS_CONNECTION_STOP | typeof WS_AUTH_CONNECTION_STOP;
+}
+
 export type TWSActions =
   | IWSConnectionStart
   | IWSConnectionSuccess
   | IWSConnectionError
   | IWSConnectionClosed
-  | IWSGetMessage;
+  | IWSGetMessage
+  | IWSConnectionStop;

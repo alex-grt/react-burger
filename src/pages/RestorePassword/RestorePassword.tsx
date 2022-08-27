@@ -12,9 +12,7 @@ import { TSButton } from '../../components/TSButton/TSButton';
 const RestorePassword: FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const { loggedIn }: { loggedIn: boolean } = useAppSelector(
-    store => store.loggedIn
-  );
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
   const {
     values,
     handleChange,

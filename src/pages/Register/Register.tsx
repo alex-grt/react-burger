@@ -12,9 +12,7 @@ import { TSButton } from '../../components/TSButton/TSButton';
 const Register: FC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const { loggedIn }: { loggedIn: boolean } = useAppSelector(
-    store => store.loggedIn
-  );
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
   const [hidden, setHidden] = useState(true);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({ name: '', email: '', password: '' });

@@ -9,20 +9,13 @@ import {
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 import { TSButton } from '../../components/TSButton/TSButton';
 
-interface IUser {
-  name: string;
-  email: string;
-}
-
 const Profile: FC = () => {
   const dispatch = useAppDispatch();
-  const { loggedIn }: { loggedIn: boolean } = useAppSelector(
-    store => store.loggedIn
-  );
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
   const {
     name: savedName,
     email: savedEmail
-  }: IUser = useAppSelector(store => store.user);
+  } = useAppSelector(store => store.user);
   const { values, handleChange, errors, partialSend, resetForm } =
     useFormWithValidation({
       name: savedName,

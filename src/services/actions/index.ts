@@ -1,6 +1,6 @@
 import { executeGet } from '../../utils/api';
 import { BASE_URL } from '../../utils/constants';
-import { TDispatch, TThunk } from '../../utils/types';
+import { TThunk } from '../../utils/types';
 export {
   sendOrder,
   sendRegistration,
@@ -42,7 +42,7 @@ export const RESTORE_STARTED: 'RESTORE_STARTED' = 'RESTORE_STARTED';
 export const RESTORE_FINISHED: 'RESTORE_FINISHED' = 'RESTORE_FINISHED';
 
 export function getIngredients(): TThunk {
-  return function(dispatch: TDispatch) {
+  return function(dispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     dispatch({ type: GET_INGREDIENTS_REQUEST });
     executeGet(`${BASE_URL}ingredients`)

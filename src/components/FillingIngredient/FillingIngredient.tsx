@@ -16,9 +16,7 @@ interface IFillingIngredientProps {
 
 const FillingIngredient: FC<IFillingIngredientProps> = ({ data, index }) => {
   const dispatch = useAppDispatch();
-  const { burger }: { burger: IDataWithTimestamp[] } = useAppSelector(
-    store => store.burger
-  );
+  const { burger } = useAppSelector(store => store.burger);
   const ref = useRef<HTMLLIElement>(null);
   const buns: IDataWithTimestamp[] = burger.filter(
     item => item.type === 'bun' ? item : null

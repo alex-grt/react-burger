@@ -22,13 +22,9 @@ import { calculateSum } from '../../utils/calculateSum';
 
 const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
-  const { loggedIn }: { loggedIn: boolean } = useAppSelector(
-    store => store.loggedIn
-  );
-  const { burger }: { burger: IDataWithTimestamp[] } = useAppSelector(
-    store => store.burger
-  );
-  const { open }: { open: boolean } = useAppSelector(store => store.order);
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
+  const { burger } = useAppSelector(store => store.burger);
+  const { open } = useAppSelector(store => store.order);
   const date = new Date();
   const buns: IDataWithTimestamp[] = burger.filter(
     item => item.type === 'bun' ? item : null

@@ -1,5 +1,6 @@
 export interface IStateWSOrders {
   connected: boolean;
   data: string;
-  error?: Event;
+  error?: Event | null;
+  info?: Event | null;
 }

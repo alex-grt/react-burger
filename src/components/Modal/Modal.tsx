@@ -10,10 +10,10 @@ interface IModalProps {
   children: ReactNode;
   isOpen: boolean | string;
   onClose: () => void;
-  type?: string;
+  styleName?: string;
 }
 
-const Modal: FC<IModalProps> = ({ children, isOpen, onClose, type }) => {
+const Modal: FC<IModalProps> = ({ children, isOpen, onClose, styleName = '' }) => {
   const modalRoot = document.querySelector('#modals') as HTMLElement;
 
   useEffect(() => {
@@ -31,9 +31,7 @@ const Modal: FC<IModalProps> = ({ children, isOpen, onClose, type }) => {
     <div className={`${modal.modalArea} ${isOpen ? modal.modalArea_opened : ''}`}>
       <ModalOverlay onClose={onClose} />
       <div className={`${modal.modal} p-10`}>
-        <div className={`${modal.modal__cover} ${
-            type === 'orders' ? modal.modal__cover_theme_orders : ''
-          }`} aria-label="закрыть">
+        <div className={`${modal.modal__cover} ${styleName}`} aria-label="закрыть">
           <CloseIcon type="primary" onClick={onClose} />
         </div>
         {children}

@@ -10,9 +10,7 @@ interface IParams {
 
 const IngredientPage: FC = () => {
   const { id } = useParams<IParams>();
-  const { ingredients }: { ingredients: IData[] } = useAppSelector(
-    store => store.ingredients
-  );
+  const { ingredients } = useAppSelector(store => store.ingredients);
   const selectedIngredient: IData = ingredients?.filter(item => item._id === id)[0];
 
   return (

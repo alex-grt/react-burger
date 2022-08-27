@@ -24,9 +24,7 @@ interface IOrderCardProps {
 
 const OrderCard: FC<IOrderCardProps> = ({ data, type }) => {
   const location = useLocation();
-  const { ingredients }: { ingredients: IData[] } = useAppSelector(
-    store => store.ingredients
-  );
+  const { ingredients } = useAppSelector(store => store.ingredients);
   const ingredientList = ingredients?.filter(item =>
     data?.ingredients.includes(item._id)
   );

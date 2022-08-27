@@ -6,7 +6,7 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Preloader: FC = () => {
   const modalRoot = document.querySelector('#modals') as HTMLElement;
-  const isOpen: boolean = useAppSelector(store => store.preloader.open);
+  const isOpen = useAppSelector(store => store.preloader.open);
 
   return ReactDOM.createPortal(
     <div

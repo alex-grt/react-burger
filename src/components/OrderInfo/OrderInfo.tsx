@@ -18,9 +18,7 @@ interface IParams {
 const OrderInfo: FC<IOrderInfoProps> = ({ type }) => {
   const { pathname } = useLocation();
   const { id } = useParams<IParams>();
-  const { ingredients }: { ingredients: IData[] } = useAppSelector(
-    store => store.ingredients
-  );
+  const { ingredients } = useAppSelector(store => store.ingredients);
   const { data } = useAppSelector(store => store.wsOrders);
   const { data: userOrdersData } = useAppSelector(store => store.wsUserOrders);
   const ordersInfo = data && JSON.parse(data);
@@ -67,9 +65,9 @@ const OrderInfo: FC<IOrderInfoProps> = ({ type }) => {
         Состав:
       </p>
       <ul className={`${orderInfo.orderInfo__list}`}>
-        {groupedOrderContent?.map((item, index) => (
+        {groupedOrderContent?.map((item) => (
           <li
-            key={index}
+            key={item[0]._id}
             className={orderInfo.orderInfo__item}
           >
             <div className={orderInfo.orderInfo__itemCover}>

@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { useDrag } from 'react-dnd';
-import { IData, IDataWithTimestamp } from '../../utils/types';
+import { IData } from '../../utils/types';
 import {
   Counter,
   CurrencyIcon
@@ -12,9 +12,7 @@ import {
 const Ingredient: FC<{ data: IData }> = ({ data }) => {
   const location = useLocation();
   const id = data._id;
-  const { burger }: { burger: IDataWithTimestamp[] } = useAppSelector(
-    store => store.burger
-  );
+  const { burger } = useAppSelector(store => store.burger);
   const count: number = burger.filter(item => item._id === data._id).length;
   const [, dragRef] = useDrag({
     type: 'ingredient',

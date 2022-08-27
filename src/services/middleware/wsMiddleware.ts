@@ -1,9 +1,7 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
-import { refreshToken } from '../../utils/apiWithRefresh';
 import { getCookie } from '../../utils/cookieMethods';
 import type { TDispatch, TStore } from '../../utils/types';
 import { TActions } from '../actions/types';
-import { WS_AUTH_CONNECTION_START } from '../actions/wsActions';
 
 interface IWSActions {
   wsStart: any;
@@ -11,11 +9,12 @@ interface IWSActions {
   wsError: any;
   wsClosed: any;
   wsMessage: any;
+  wsStop: any;
 }
 
 export const wsMiddleware = (
   wsUrl: string,
-  { wsStart, wsSuccess, wsError, wsClosed, wsMessage }: IWSActions,
+  { wsStart, wsSuccess, wsError, wsClosed, wsMessage, wsStop }: IWSActions,
   withAuth: boolean = false
 
 ): Middleware => {
@@ -46,14 +45,6 @@ export const wsMiddleware = (
 
           dispatch({ type: wsMessage, payload: data });
 
-          if (data.includes('Invalid or missing token')) {
-            refreshToken()
-              .then(() => {
-                dispatch({ type: WS_AUTH_CONNECTION_START });
-              })
-              .catch(err => console.log(`Ошибка: ${err}`));
-          }
-
           if (data === 'ping') {
             socket?.send('pong');
           }
@@ -61,6 +52,10 @@ export const wsMiddleware = (
 
         socket.onclose = (evt) => {
           dispatch({ type: wsClosed, payload: evt });
+        };
+
+        if (type === wsStop) {
+          socket.close(1000);
         };
       };
 

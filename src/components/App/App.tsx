@@ -19,14 +19,10 @@ import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import Feed from '../../pages/Feed/Feed';
 import OrderPage from '../../pages/OrderPage/OrderPage';
 import Orders from '../../pages/Orders/Orders';
-import {
-  WS_AUTH_CONNECTION_START,
-  WS_CONNECTION_START
-} from '../../services/actions/wsActions';
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
-  const { loggedIn }: { loggedIn: boolean } = useAppSelector(store => store.loggedIn);
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
   const location: any = useLocation();
   const history = useHistory();
   const background = location?.state?.background;
@@ -40,16 +36,8 @@ const App: FC = () => {
     }
 
     dispatch(getIngredients());
-    dispatch({ type: WS_CONNECTION_START });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (loggedIn) {
-      dispatch({ type: WS_AUTH_CONNECTION_START });
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedIn]);
 
   function handleMenuClick() {
     setMenuOpen(true);

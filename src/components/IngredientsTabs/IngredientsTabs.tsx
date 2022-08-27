@@ -6,9 +6,7 @@ import { TSTab } from '../TSTab/TSTab';
 
 const IngredientsTabs: FC = () => {
   const dispatch = useAppDispatch();
-  const { currentTab }: { currentTab: string } = useAppSelector(
-    store => store.ingredients
-  );
+  const { currentTab } = useAppSelector(store => store.ingredients);
 
   function switchTab(current: string) {
     const element: HTMLLIElement | null = document.querySelector(`#${current}`);

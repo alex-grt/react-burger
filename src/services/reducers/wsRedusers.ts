@@ -3,11 +3,13 @@ import {
   WS_AUTH_CONNECTION_CLOSED,
   WS_AUTH_CONNECTION_ERROR,
   WS_AUTH_CONNECTION_START,
+  WS_AUTH_CONNECTION_STOP,
   WS_AUTH_CONNECTION_SUCCESS,
   WS_AUTH_GET_MESSAGE,
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_START,
+  WS_CONNECTION_STOP,
   WS_CONNECTION_SUCCESS,
   WS_GET_MESSAGE
 } from '../actions/wsActions';
@@ -28,7 +30,8 @@ function getWSOrders(
     case WS_CONNECTION_SUCCESS: {
       return {
         ...state,
-        connected: true
+        connected: true,
+        info: action.payload
       };
     }
     case WS_CONNECTION_ERROR: {
@@ -41,13 +44,21 @@ function getWSOrders(
     case WS_CONNECTION_CLOSED: {
       return {
         ...state,
-        connected: false
+        connected: false,
+        info: action.payload
       };
     }
     case WS_GET_MESSAGE: {
       return {
         ...state,
         data: action.payload
+      };
+    }
+    case WS_CONNECTION_STOP: {
+      return {
+        connected: false,
+        data: '',
+        error: null
       };
     }
     default: { return state; }
@@ -68,7 +79,8 @@ function getWSUserOrders(
     case WS_AUTH_CONNECTION_SUCCESS: {
       return {
         ...state,
-        connected: true
+        connected: true,
+        info: action.payload
       };
     }
     case WS_AUTH_CONNECTION_ERROR: {
@@ -81,13 +93,21 @@ function getWSUserOrders(
     case WS_AUTH_CONNECTION_CLOSED: {
       return {
         ...state,
-        connected: false
+        connected: false,
+        info: action.payload
       };
     }
     case WS_AUTH_GET_MESSAGE: {
       return {
         ...state,
         data: action.payload
+      };
+    }
+    case WS_AUTH_CONNECTION_STOP: {
+      return {
+        connected: false,
+        data: '',
+        error: null
       };
     }
     default: { return state; }

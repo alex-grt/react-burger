@@ -11,9 +11,7 @@ import { TSButton } from '../../components/TSButton/TSButton';
 
 const ResetPassword: FC = () => {
   const history = useHistory();
-  const { restore }: { restore: boolean } = useAppSelector(
-    store => store.restore
-  );
+  const { restore } = useAppSelector(store => store.restore);
   const dispatch = useAppDispatch();
   const {
     values,

@@ -9,7 +9,7 @@ interface IProtectedRouteProps {
 }
 
 const ProtectedRoute: FC<IProtectedRouteProps> = ({ children, ...props }) => {
-  const { loggedIn }: { loggedIn: boolean } = useAppSelector(store => store.loggedIn);
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
   const refreshToken = localStorage.getItem('refreshToken');
 
   return (
