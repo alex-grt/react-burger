@@ -3,7 +3,7 @@ import {
   initialUser,
   initialLoggedIn,
   initialRestore
-} from '../../utils/initialStates';
+} from './initialStates';
 import {
   MAKE_ORDER_REQUEST,
   MAKE_ORDER_SUCCESS,
@@ -17,8 +17,15 @@ import {
   RESTORE_STARTED,
   RESTORE_FINISHED
 } from '../actions/index';
+import { TActions } from '../actions/types';
+import {
+  IStateLoggedIn,
+  IStateOrder,
+  IStateRestore,
+  IStateUser
+} from './types';
 
-function setOrder(state = initialOrder, action) {
+function setOrder(state = initialOrder, action: TActions): IStateOrder {
   switch (action.type) {
     case MAKE_ORDER_REQUEST: {
       return {
@@ -54,7 +61,7 @@ function setOrder(state = initialOrder, action) {
   }
 };
 
-function setUserData(state = initialUser, action) {
+function setUserData(state = initialUser, action: TActions): IStateUser {
   switch (action.type) {
     case SET_USER_REQUEST: {
       return {
@@ -80,33 +87,31 @@ function setUserData(state = initialUser, action) {
   }
 };
 
-function setLoggedIn(state = initialLoggedIn, action) {
+function setLoggedIn(
+  state = initialLoggedIn,
+  action: TActions
+): IStateLoggedIn {
   switch (action.type) {
     case LOGGED_IN: {
-      return {
-        loggedIn: true
-      };
+      return { loggedIn: true };
     }
     case LOGGED_OUT: {
-      return {
-        loggedIn: false
-      }
+      return { loggedIn: false };
     }
     default: { return state; }
   }
 };
 
-function setRestorePassword(state = initialRestore, action) {
+function setRestorePassword(
+  state = initialRestore,
+  action: TActions
+): IStateRestore {
   switch (action.type) {
     case RESTORE_STARTED: {
-      return {
-        restore: true
-      };
+      return { restore: true };
     }
     case RESTORE_FINISHED: {
-      return {
-        restore: false
-      }
+      return { restore: false };
     }
     default: { return state; }
   }

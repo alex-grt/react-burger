@@ -1,10 +1,9 @@
 import restorePassword from './RestorePassword.module.css';
 import { FC, FormEvent, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useFormWithValidation } from '../../hooks/useValidation';
 import { sendRestore } from '../../services/actions';
-import { TDispatch, TStore } from '../../utils/types';
 import {
   Input
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -12,10 +11,8 @@ import { TSButton } from '../../components/TSButton/TSButton';
 
 const RestorePassword: FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch<TDispatch>();
-  const { loggedIn }: { loggedIn: boolean } = useSelector(
-    (store: TStore) => store.loggedIn
-  );
+  const dispatch = useAppDispatch();
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
   const {
     values,
     handleChange,

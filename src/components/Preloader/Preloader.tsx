@@ -1,13 +1,12 @@
 import preloader from './Preloader.module.css';
 import { FC } from 'react';
 import ReactDOM from 'react-dom';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../hooks';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TStore } from '../../utils/types';
 
 const Preloader: FC = () => {
   const modalRoot = document.querySelector('#modals') as HTMLElement;
-  const isOpen: boolean = useSelector((store: TStore) => store.preloader.open);
+  const isOpen = useAppSelector(store => store.preloader.open);
 
   return ReactDOM.createPortal(
     <div

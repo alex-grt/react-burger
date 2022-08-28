@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { compose, applyMiddleware, legacy_createStore as createStore } from 'redux';
+import {
+  compose,
+  applyMiddleware,
+  legacy_createStore as createStore
+} from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers';
 import thunk from 'redux-thunk';
 import './index.css';
-import App from './components/App/App';
+import { wsMiddleware } from './services/middleware/wsMiddleware';
+import { wsActions, wsAuthActions } from './services/actions/wsActions';
+import { WS_URL } from './utils/constants';
 import reportWebVitals from './reportWebVitals';
+import App from './components/App/App';
 
 const composeEnhancers =
   // @ts-ignore
@@ -15,8 +22,14 @@ const composeEnhancers =
     // @ts-ignore
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk));
-export const store: any = createStore(rootReducer, enhancer);
+const enhancer = composeEnhancers(
+  applyMiddleware(
+    thunk,
+    wsMiddleware(`${WS_URL}/all`, wsActions),
+    wsMiddleware(WS_URL, wsAuthActions, true)
+  )
+);
+export const store = createStore(rootReducer, enhancer);
 
 const root = ReactDOM.createRoot(document.querySelector('#root')!);
 root.render(

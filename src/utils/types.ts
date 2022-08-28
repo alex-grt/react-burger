@@ -1,9 +1,20 @@
 import { ReactNode, SyntheticEvent } from 'react';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { store } from '..';
+import { TActions } from '../services/actions/types';
 
-export type TStore = typeof store;
+export type TStore = ReturnType<typeof store.getState>;
 
-export type TDispatch = typeof store.dispatch;
+export type TDispatch = ThunkDispatch<TStore, never, TActions>;
+
+export type TThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  TStore,
+  never,
+  TActions
+>;
+
+export type TIngredientList = string[];
 
 export interface IHeaders {
   [name: string]: string;
@@ -26,6 +37,33 @@ export interface IData {
 
 export interface IDataWithTimestamp extends IData {
   timeId: number;
+}
+
+export interface IOrder {
+  readonly ingredients?: IData[];
+  readonly _id?: string;
+  readonly owner?: {
+    readonly name: string;
+    readonly email: string;
+    readonly createdAt: string;
+    readonly updatedAt: string;
+  };
+  readonly status?: string;
+  readonly name?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  readonly number?: number;
+  readonly price?: number;
+}
+
+export interface IWSOrder {
+  readonly _id: string;
+  readonly ingredients: string[];
+  readonly status: string;
+  readonly name: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+  readonly number: number;
 }
 
 export interface IButton {

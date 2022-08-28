@@ -1,12 +1,11 @@
 import profileMenu from './ProfileMenu.module.css';
 import { FC, MouseEvent } from 'react';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../hooks';
 import { sendLogout } from '../../services/actions';
-import { TDispatch } from '../../utils/types';
 
 const ProfileMenu: FC = () => {
-  const dispatch =useDispatch<TDispatch>();
+  const dispatch =useAppDispatch();
   const history = useHistory();
   const { pathname } = useLocation();
   const refreshToken = localStorage.getItem('refreshToken');
@@ -27,6 +26,7 @@ const ProfileMenu: FC = () => {
         <div className={profileMenu.profileMenu__linkCover}>
           <NavLink
             to="/profile"
+            exact
             className={`${profileMenu.profileMenu__link} text text_type_main-medium`}
             activeClassName={profileMenu.profileMenu__link_active}
           >
@@ -60,7 +60,7 @@ const ProfileMenu: FC = () => {
       >
         {pathname === '/profile'
           ? 'В этом разделе вы можете изменить свои персональные данные'
-          : pathname === '/profile/order'
+          : pathname === '/profile/orders'
           ? 'В этом разделе вы можете просмотреть свою историю заказов'
           : ''}
       </p>

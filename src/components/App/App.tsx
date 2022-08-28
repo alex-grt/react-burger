@@ -1,9 +1,9 @@
 import app from './App.module.css';
 import { FC, useEffect, useState } from 'react';
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getIngredients, LOGGED_IN } from '../../services/actions';
-import { TDispatch } from '../../utils/types';
+import { switchModal } from '../../utils/switchModal';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AppHeader from '../AppHeader/AppHeader';
 import NavigationMenu from '../NavigationMenu/NavigationMenu';
@@ -16,20 +16,25 @@ import RestorePassword from '../../pages/RestorePassword/RestorePassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import Feed from '../../pages/Feed/Feed';
+import OrderPage from '../../pages/OrderPage/OrderPage';
+import Orders from '../../pages/Orders/Orders';
 
 const App: FC = () => {
-  const dispatch = useDispatch<TDispatch>();
+  const dispatch = useAppDispatch();
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
   const location: any = useLocation();
   const history = useHistory();
-  const background = location.state && location.state.background;
+  const background = location?.state?.background;
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const refreshToken = localStorage.getItem('refreshToken');
 
-    refreshToken && dispatch({ type: LOGGED_IN });
+    if (!loggedIn && refreshToken) {
+      dispatch({ type: LOGGED_IN });
+    }
+
     dispatch(getIngredients());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -71,11 +76,17 @@ const App: FC = () => {
           <Profile />
         </ProtectedRoute>
         <ProtectedRoute path="/profile/orders" exact>
-          <></>
+          <Orders />
         </ProtectedRoute>
         <ProtectedRoute path="/profile/orders/:id" exact>
-          <></>
+          <OrderPage />
         </ProtectedRoute>
+        <Route path="/feed" exact>
+          <Feed />
+        </Route>
+        <Route path="/feed/:id" exact>
+          <OrderPage />
+        </Route>
         <Route path="/ingredients/:id" exact>
           <IngredientPage />
         </Route>
@@ -83,16 +94,7 @@ const App: FC = () => {
           <Error name="404" text="Страница не найдена" />
         </Route>
       </Switch>
-      {background && (
-        <Route
-          path="/ingredients/:id"
-          children={
-            <Modal isOpen={background} onClose={handleModalClose}>
-              <IngredientDetails />
-            </Modal>
-          }
-        />
-      )}
+      {switchModal(background?.pathname, handleModalClose)}
       <Preloader />
     </div>
   );

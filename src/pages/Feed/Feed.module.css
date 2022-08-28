@@ -1,0 +1,15 @@
+.feed {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+}
+
+@media screen and (max-width: 1260px) {
+  .feed {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}

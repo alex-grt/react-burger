@@ -1,21 +1,18 @@
 import login from './Login.module.css';
 import { FC, FormEvent, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendLogin } from '../../services/actions';
 import { useFormWithValidation } from '../../hooks/useValidation';
-import { TDispatch, TStore } from '../../utils/types';
 import {
   Input
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { TSButton } from '../../components/TSButton/TSButton';
 
 const Login: FC = () => {
-  const dispatch = useDispatch<TDispatch>();
+  const dispatch = useAppDispatch();
   const history: any = useHistory();
-  const { loggedIn }: { loggedIn: boolean } = useSelector(
-    (store: TStore) => store.loggedIn
-  );
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
   const [hidden, setHidden] = useState(true);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({ email: '', password: '' });

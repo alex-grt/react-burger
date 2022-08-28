@@ -1,29 +1,21 @@
 import profile from './Profile.module.css';
 import { FC, FormEvent, useEffect, MouseEvent, FocusEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getUser, updateUser } from '../../services/actions';
 import { useFormWithValidation } from '../../hooks/useValidation';
-import { TDispatch, TStore } from '../../utils/types';
 import {
   Input
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 import { TSButton } from '../../components/TSButton/TSButton';
 
-interface IUser {
-  name: string;
-  email: string;
-}
-
 const Profile: FC = () => {
-  const dispatch = useDispatch<TDispatch>();
-  const { loggedIn }: { loggedIn: boolean } = useSelector(
-    (store: TStore) => store.loggedIn
-  );
+  const dispatch = useAppDispatch();
+  const { loggedIn } = useAppSelector(store => store.loggedIn);
   const {
     name: savedName,
     email: savedEmail
-  }: IUser = useSelector((store: TStore) => store.user);
+  } = useAppSelector(store => store.user);
   const { values, handleChange, errors, partialSend, resetForm } =
     useFormWithValidation({
       name: savedName,

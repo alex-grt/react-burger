@@ -1,16 +1,13 @@
 import burgerIngredients from './BurgerIngredients.module.css';
 import { FC, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { IData, TStore } from '../../utils/types';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SET_CURRENT_TAB } from '../../services/actions';
 import IngredientsTabs from '../IngredientsTabs/IngredientsTabs';
 import Category from '../Category/Category';
 
 const BurgerIngredients: FC = () => {
-  const dispatch = useDispatch();
-  const { ingredients }: { ingredients: IData[] } = useSelector(
-    (store: TStore) => store.ingredients
-  );
+  const dispatch = useAppDispatch();
+  const { ingredients } = useAppSelector(store => store.ingredients);
   const containerRef = useRef<HTMLUListElement>(null);
   const bunRef = useRef<HTMLLIElement>(null);
   const sauceRef = useRef<HTMLLIElement>(null);

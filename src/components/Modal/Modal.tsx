@@ -8,11 +8,12 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay';
 
 interface IModalProps {
   children: ReactNode;
-  isOpen: boolean | object;
+  isOpen: boolean | string;
   onClose: () => void;
+  styleName?: string;
 }
 
-const Modal: FC<IModalProps> = ({ children, isOpen, onClose }) => {
+const Modal: FC<IModalProps> = ({ children, isOpen, onClose, styleName = '' }) => {
   const modalRoot = document.querySelector('#modals') as HTMLElement;
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const Modal: FC<IModalProps> = ({ children, isOpen, onClose }) => {
     <div className={`${modal.modalArea} ${isOpen ? modal.modalArea_opened : ''}`}>
       <ModalOverlay onClose={onClose} />
       <div className={`${modal.modal} p-10`}>
-        <div className={modal.modal__cover} aria-label="закрыть">
+        <div className={`${modal.modal__cover} ${styleName}`} aria-label="закрыть">
           <CloseIcon type="primary" onClick={onClose} />
         </div>
         {children}

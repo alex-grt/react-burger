@@ -21,8 +21,13 @@ import {
   RESTORE_STARTED,
   RESTORE_FINISHED
 } from './index';
+import { TIngredientList, TThunk } from '../../utils/types';
 
-function sendOrder(data) {
+interface IValues {
+  [name: string]: string;
+}
+
+function sendOrder(data: { ingredients: TIngredientList }): TThunk {
   return function(dispatch) {
     const headers ={
       "content-type": "application/json",
@@ -50,7 +55,7 @@ function sendOrder(data) {
   }
 };
 
-function sendRegistration(data, callback) {
+function sendRegistration(data: IValues, callback: () => void): TThunk {
   return function(dispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     dispatch({ type: SET_USER_REQUEST });
@@ -81,7 +86,7 @@ function sendRegistration(data, callback) {
   }
 };
 
-function sendLogin(data, callback) {
+function sendLogin(data: IValues, callback: () => void): TThunk {
   return function(dispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     dispatch({ type: SET_USER_REQUEST });
@@ -112,7 +117,10 @@ function sendLogin(data, callback) {
   }
 };
 
-function sendLogout(data, callback) {
+function sendLogout(
+  data: { token: string | null },
+  callback: () => void
+): TThunk {
   return function(dispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     dispatch({ type: SET_USER_REQUEST });
@@ -138,7 +146,7 @@ function sendLogout(data, callback) {
   }
 };
 
-function sendRestore(data, callback) {
+function sendRestore(data: IValues, callback: () => void): TThunk {
   return function(dispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     executePost(`${BASE_URL}password-reset`, data)
@@ -153,7 +161,7 @@ function sendRestore(data, callback) {
   }
 };
 
-function sendReset(data, callback) {
+function sendReset(data: IValues, callback: () => void): TThunk {
   return function(dispatch) {
     dispatch({ type: ENABLE_PRELOADER });
     executePost(`${BASE_URL}password-reset/reset`, data)
@@ -168,7 +176,7 @@ function sendReset(data, callback) {
   }
 };
 
-function getUser() {
+function getUser(): TThunk {
   return function(dispatch) {
     const headers = {
       "content-type": "application/json",
@@ -195,7 +203,7 @@ function getUser() {
   }
 };
 
-function updateUser(data) {
+function updateUser(data: IValues): TThunk {
   return function(dispatch) {
     const headers ={
       "content-type": "application/json",
