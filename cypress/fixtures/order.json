@@ -1,0 +1,49 @@
+{
+  "success": true,
+  "name": "Астероидный краторный бургер",
+  "order": {
+    "ingredients": [
+      {
+        "_id": "60d3b41abdacab0026a733c6",
+        "name": "Краторная булка N-200i",
+        "type": "bun",
+        "proteins": 80,
+        "fat": 24,
+        "carbohydrates": 53,
+        "calories": 420,
+        "price": 1255,
+        "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "60d3b41abdacab0026a733d4",
+        "name": "Сыр с астероидной плесенью",
+        "type": "main",
+        "proteins": 84,
+        "fat": 48,
+        "carbohydrates": 420,
+        "calories": 3377,
+        "price": 4142,
+        "image": "https://code.s3.yandex.net/react/code/cheese.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/cheese-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/cheese-large.png",
+        "__v": 0
+      }
+    ],
+    "_id": "631618bc42d34a001c285dbb",
+    "owner": {
+      "name": "test",
+      "email": "test@test.ru",
+      "createdAt": "2022-07-18T20:04:36.965Z",
+      "updatedAt": "2022-08-09T14:27:35.839Z"
+    },
+    "status": "done",
+    "name": "Астероидный краторный бургер",
+    "createdAt": "2022-09-05T15:41:48.590Z",
+    "updatedAt": "2022-09-05T15:41:48.958Z",
+    "number": 123123,
+    "price": 5397
+  }
+}
