@@ -148,12 +148,11 @@ const BurgerConstructor: FC = () => {
           Перенесите сюда ингредиенты, чтобы создать свой бургер
         </p>
       )}
-      <Modal
-        isOpen={open}
-        onClose={handleClose}
-      >
-        <OrderDetails />
-      </Modal>
+      {open ? (
+        <Modal isOpen={open} onClose={handleClose}>
+          <OrderDetails />
+        </Modal>
+      ) : null}
     </section>
   );
 }
